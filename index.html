@@ -1,1 +1,55 @@
-YES
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Monster Zoo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="images/icon.jpg" type="image/png" />
+
+    <!-- Controllers -->
+    <script src="src/controller/GridController.js" defer></script>
+    <script src="src/controller/MainController.js" defer></script>
+    <script src="src/controller/MonsterController.js" defer></script>
+    <script src="src/controller/WeatherController.js" defer></script>
+
+    <!-- Model -->
+    <script src="src/model/Monster.js" defer></script>
+
+    <!-- Views -->
+    <script src="src/view/GridView.js" defer></script>
+    <script src="src/view/MonsterView.js" defer></script>
+    <script src="src/view/WeatherView.js" defer></script>
+
+    <!-- App -->
+    <script src="src/Main.js" defer></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="./style.css">
+
+</head>
+
+<body>
+<div class="monster-zoo">
+
+    <!-- Monster configurator -->
+    <div class="monster-configurator-wrapper">
+        <div class="monster-configurator">
+        </div>
+    </div>
+
+    <!-- Board -->
+    <div class="grid-wrapper">
+        <div class="grid-regions">
+        </div>
+        <div class="grid">
+            <div class="region"></div>
+        </div>
+    </div>
+
+    <!-- Weather -->
+    <div class="weather-wrapper">
+        <div class="weather"></div>
+    </div>
+</div>
+</body>
