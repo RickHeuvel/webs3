@@ -1,0 +1,8 @@
+class WeatherController
+{
+    initialize()
+    {
+        // initialize
+    }
+
+}
