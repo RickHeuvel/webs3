@@ -21,9 +21,9 @@ body {
 
 /* style for board */
 
-.board-wrapper {}
+.grid-wrapper {}
 
-.board-title-box {
+.grid-regions {
     display: flex;
 }
 
@@ -41,7 +41,7 @@ body {
     display: inline-block;
     font-size: 16px;
     margin: 5px 5px;
-    border-radius: 50%;
+    border-radius: 12px;
 }
 
 .select-region>button#Jungle {
