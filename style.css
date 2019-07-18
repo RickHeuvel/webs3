@@ -1,0 +1,252 @@
+/* layout style*/
+
+body {
+    background: url(./images/background.jpg) fixed;
+}
+
+.monster-zoo {
+    display: grid;
+    grid-template-columns: 25% auto 25%;
+    grid-gap: 20px;
+}
+
+/* style for monster configurator */
+.monster-configurator-wrapper {}
+
+.monster-configurator {
+    border: 1px solid black;
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+/* style for board */
+
+.board-wrapper {}
+
+.board-title-box {
+    display: flex;
+}
+
+.select-region {
+    display: flex;
+    margin-left: 30px;
+}
+
+.select-region>button {
+    border: none;
+    color: white;
+    padding: 0px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 5px;
+    border-radius: 50%;
+}
+
+.select-region>button#Jungle {
+    background-color: #4CAF50;
+    /* Green */
+}
+
+.select-region>button#Sjahari {
+    background-color: burlywood;
+}
+
+.select-region>button#IcePole {
+    background-color: #008CBA;
+}
+
+.region {
+    margin: auto;
+    display: table;
+    padding: 5px;
+}
+
+.monsterImageHolder .monster-image-properties {
+    visibility: hidden;
+    width: 200px;
+    max-height: 130px;
+    overflow: auto;
+    background-color: darkslategrey;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.monsterImageHolder:hover .monster-image-properties {
+    visibility: visible;
+}
+
+/* style for special attack */
+.gif_holder {
+    margin-top: 15px;
+    height: 25%;
+    position: inherit;
+}
+
+.gif_holder .specialAttack{
+    width: 100%;
+    height: 100%;
+}
+
+
+/* style for weather */
+
+.weather-box-wrapper {}
+
+.weather-box {
+    border: 1px solid black;
+    background-color: #f2f2f2;
+    padding-left: 10px;
+}
+
+.weather-box h4 {
+    margin-block-start: 0.7em;
+    margin-block-end: 0.7em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+/* style for a tile */
+
+.tile {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 5px;
+    font-size: 15px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+}
+
+.tile[climateType='Jungle'] {
+    background-color: lime;
+}
+
+.tile[climateType='IcePole'] {
+    background-color: rgb(103, 214, 248);
+}
+
+.tile[climateType='Sjahari'] {
+    background-color: burlywood;
+}
+
+.tile[available='false'] {
+    background-color: white;
+}
+
+.tileRow {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.changeColor {
+    animation-name: changeColor;
+    animation-duration: 5s;
+}
+
+@keyframes changeColor {
+    0% {
+        background-color: red;
+    }
+    25% {
+        background-color: yellow;
+    }
+    50% {
+        background-color: blue;
+    }
+    100% {
+        background-color: pink;
+    }
+}
+
+/* style for the image of the monster in the monster-configurator */
+
+.monsterImage[place=monster-configurator] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
+    height: 150px;
+}
+
+/* style for the image of the monster on the board */
+
+.monsterImage[place=board] {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 45px;
+    height: 45px;
+}
+
+/* form style */
+
+.search-input-container input[type=text], select {
+    width: 70%;
+    padding: 10px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-input-container #search-button {
+    width: 20%;
+    height: 35px;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+.delete {
+    width: 100%;
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.error {
+    color: red;
+}
+
+/* style for html elements*/
+
+h1 {
+    color: #F4A460;
+    font-family: "Comic Sans MS";
+}
