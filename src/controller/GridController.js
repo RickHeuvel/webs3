@@ -1,7 +1,12 @@
 class GridController
 {
+    constructor()
+    {
+        this.gridView = new GridView(this);
+    }
+
     initialize()
     {
-        // initialize
+        this.gridView.setUpGridView();
     }
 }

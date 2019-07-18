@@ -1,8 +1,12 @@
 class WeatherController
 {
-    initialize()
+    constructor()
     {
-        // initialize
+        this.weatherView = new WeatherView(this);
     }
 
+    initialize()
+    {
+        this.weatherView.setUpWeatherView();
+    }
 }

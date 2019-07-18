@@ -7,19 +7,24 @@ class MonsterView
 
     setUpMonsterView()
     {
+        this.createTitleBox();
         this.setUpMonsterConfig();
     }
 
-    setUpMonsterConfig()
+    createTitleBox()
     {
-        let monsterConfiguratorWrapper = document.querySelector(".monster-configurator-wrapper");
         let monsterConfiguratorTitle = document.querySelector(".monster-configurator-title");
-        let monsterConfigurator = document.querySelector(".monster-configurator");
         // set title (h1)
         let title = document.createElement("h1");
         let title_content = document.createTextNode("Monster Configurator");
         title.appendChild(title_content);
         monsterConfiguratorTitle.append(title);
+    }
+
+    setUpMonsterConfig()
+    {
+        let monsterConfiguratorWrapper = document.querySelector(".monster-configurator-wrapper");
+        let monsterConfigurator = document.querySelector(".monster-configurator");
 
         // create form
         let config_form = document.createElement("form");
