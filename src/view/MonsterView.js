@@ -40,7 +40,7 @@ class MonsterView
 
         // create type holder
         let type_holder = document.createElement("div");
-        type_holder.id = "strength_holder";
+        type_holder.id = "type_holder";
         config_form.append(type_holder);
 
         // create strength holder
@@ -107,6 +107,7 @@ class MonsterView
 
     setupCreationForm(){
         this.setupName();
+        this.setupType();
     }
 
     setupName(selectedValue){
@@ -136,6 +137,49 @@ class MonsterView
         parentElement.append(nameInput);
 
     }
+    setupType(selectedValue){
+        let parentElement = document.querySelector("#type_holder");
+
+        // clean old property
+        this.clearProperty(parentElement);
+
+        // get types
+        let typeList = this.monsterController.types;
+        let selectedType = selectedValue ? selectedValue : typeList[0];
+
+
+
+        this.createOptionBox("Type monster", typeList, "monster-type", parentElement, selectedType);
+    }
+
+    createOptionBox(text, options, optionType, parentElement, callback, selectedValue){
+        let propertyLabel = document.createElement(("label"));
+        let ArmsLabel = document.createTextNode(text);
+        let propertySelector = document.createElement("select");
+        propertyLabel.for = optionType;
+        propertyLabel.appendChild(ArmsLabel);
+        propertySelector.id = optionType;
+        propertySelector.name = optionType;
+
+        // create empty options
+        options.forEach( option => {
+            let selectOption = document.createElement("option");
+            selectOption.value = option;
+            let selectText = document.createTextNode(option);
+            selectOption.append(selectText);
+
+            //append option to selectbox
+            propertySelector.append(selectOption);
+        });
+
+        parentElement.append(propertyLabel);
+        parentElement.append(propertySelector);
+
+        if (selectedValue) {
+            propertySelector.value = selectedValue;
+        }
+    }
+
 
     clearProperty(holder){
         while (holder.firstChild){
