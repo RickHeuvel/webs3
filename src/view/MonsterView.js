@@ -13,6 +13,7 @@ class MonsterView
     setUpMonsterConfig()
     {
         let monsterConfiguratorWrapper = document.querySelector(".monster-configurator-wrapper");
+        let monsterConfiguratorTitle = document.querySelector(".monster-configurator-title");
         let monsterConfigurator = document.querySelector(".monster-configurator");
 
         // set title (h1)
@@ -44,6 +45,8 @@ class MonsterView
         // create canSwim holder
 
         // create specialPower holder
-        
+
+        // create generate-button
+
     }
 }
