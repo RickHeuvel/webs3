@@ -15,8 +15,11 @@ class MonsterView
         let monsterConfiguratorWrapper = document.querySelector(".monster-configurator-wrapper");
         let monsterConfiguratorTitle = document.querySelector(".monster-configurator-title");
         let monsterConfigurator = document.querySelector(".monster-configurator");
-
         // set title (h1)
+        let title = document.createElement("h1");
+        let title_content = document.createTextNode("Monster Configurator");
+        title.appendChild(title_content);
+        monsterConfiguratorTitle.append(title);
 
         // create form
 
