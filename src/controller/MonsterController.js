@@ -96,6 +96,28 @@ class MonsterController
         return range;
     }
 
+    getArmType(type){
+        let types = [];
+        switch (type) {
+            case "Water":
+                types = ["tentacles", "fins"];
+                break;
+            case "Fire":
+                types = ["tentacles", "claws", "claw wings"];
+                break;
+            case "Earth":
+                types = ["claws"];
+                break;
+            case "Air":
+                types = ["claws", "claw wings"];
+                break;
+            default:
+                return;
+        }
+
+        return types;
+    }
+
     getLegAmountRange(type, armAmount){
         let max = 0;
         let range = [];
@@ -132,4 +154,6 @@ class MonsterController
 
         return range;
     }
+
+
 }

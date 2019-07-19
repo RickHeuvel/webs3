@@ -149,10 +149,12 @@ class MonsterView
 
         //callbacks
         let setupArmAmount = this.setupArmAmount.bind(this);
+        let setupArmType = this.setupArmType.bind(this);
         let setupLegAmount = this.setupLegAmount.bind(this);
 
         let callback = function (type) {
             setupArmAmount(type);
+            setupArmType(type);
             setupLegAmount(type);
         };
         this.createOptionBox("Type monster", typeList, "monster-type", parentElement, callback, selectedType);
@@ -179,6 +181,16 @@ class MonsterView
         this.createOptionBox("Aantal armen", range, "arm_amount", parentElement, callback, selectedValue);
     }
 
+    setupArmType(type, selectedValue){
+        //set parentElement
+        let parentElement = document.querySelector("#armType_holder");
+
+        this.clearProperty(parentElement);
+
+        let types = this.monsterController.getArmType(type);
+
+        this.createOptionBox("Type of arms", types, "arm_type", parentElement, null, selectedValue);
+    }
 
     setupLegAmount(type, armAmount = 0, selectedValue) {
         //set parentElement
