@@ -147,9 +147,46 @@ class MonsterView
         let typeList = this.monsterController.types;
         let selectedType = selectedValue ? selectedValue : typeList[0];
 
+        //callbacks
+        let setupArmAmount = this.setupArmAmount.bind(this);
+
+        let callback = function (selectedType) {
+            setupArmAmount(selectedType);
+        };
+        this.createOptionBox("Type monster", typeList, "monster-type", parentElement, callback, selectedType);
+    }
+
+    setupArmAmount(type,selectedValue){
+        //set parentElement
+        let parentElement = document.querySelector('#armAmount_holder');
+
+        this.clearProperty(parentElement);
+
+        //callback
+        //let setupLegAmount = this.setupLegAmount().bind(this);
+
+        let callback = function (value) {
+            let arms = value;
+            //setupLegAmount(type,arms);
+
+        };
+
+        // set maxAmount
+        let range = this.monsterController.getArmAmountRange(type);
+
+        this.createOptionBox("Aantal armen", range, "arm_amount", parentElement, callback, selectedValue);
+    }
 
 
-        this.createOptionBox("Type monster", typeList, "monster-type", parentElement, selectedType);
+    setupLegAmount(type, armAmount, selectedValue) {
+        //set parentElement
+        let parentElement = document.querySelector("#legAmount_holder");
+
+        // clean property
+        this.clearProperty(parentElement);
+
+        let range = this.monsterController.getLegAmountRange(type, armAmount);
+        this.createOptionBox("Aantal benen", range, "leg_amount", parentElement, null, selectedValue);
     }
 
     createOptionBox(text, options, optionType, parentElement, callback, selectedValue){
@@ -172,11 +209,21 @@ class MonsterView
             propertySelector.append(selectOption);
         });
 
+        if (callback) {
+            propertySelector.addEventListener("change", function () {
+                let selectedValue = this.value;
+                callback(selectedValue)
+            });
+        }
         parentElement.append(propertyLabel);
         parentElement.append(propertySelector);
 
         if (selectedValue) {
             propertySelector.value = selectedValue;
+
+            //trigger onchange
+            let event = new Event("change");
+            propertySelector.dispatchEvent(event);
         }
     }
 
@@ -186,4 +233,5 @@ class MonsterView
             holder.firstChild.remove();
         }
     }
+
 }

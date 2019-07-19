@@ -64,4 +64,72 @@ class MonsterController
             return this.monsterList.length +1;
         }
     }
+
+    getArmAmountRange(type){
+        let max;
+        let range = [];
+
+
+        switch (type) {
+            case "Water":
+                max = 8;
+                for (let i = 1; i <= max; i++ ){
+                    range.push(i);
+                }
+                break;
+            case "Fire":
+                max = 6;
+                for (let i = 1; i <= max; i++ ){
+                    range.push(i);
+                }
+                break;
+            case "Earth":
+                range.push(2);
+                break;
+            case "Air":
+                range.push(2);
+                break;
+            default:
+                return;
+        }
+
+        return range;
+    }
+
+    getLegAmountRange(type, armAmount){
+        let max = 0;
+        let range = [];
+
+        switch (type) {
+            case "Water":
+                if (armAmount <= 4){
+                    max = 4;
+
+                    for (let i = 1; i <= max; i++ ){
+                        range.push(i);
+                    }
+                }else {
+                    range.push(0);
+                }
+
+                break;
+            case "Fire":
+               if (armAmount <= 2){
+                   range.push(2);
+               } else {
+                   range.push(0);
+               }
+                break;
+            case "Earth":
+                range.push(2,4,6);
+                break;
+            case "Air":
+                range.push(0,2);
+                break;
+            default:
+                return;
+        }
+
+        return range;
+    }
 }
