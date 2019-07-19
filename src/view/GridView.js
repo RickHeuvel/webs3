@@ -37,7 +37,7 @@ class GridView
         // create all region options and add to the wrapper for all the region buttons (regionBtnWrapper)
         this.gridController.regionList.forEach(regionOption => {
             // create button for each region
-            let regionOptionBtn = this.createRegionOption(regionOption);
+            let regionOptionBtn = this.createRegionButtons(regionOption);
 
             // append the button to the wrapper
             regionBtnWrapper.append(regionOptionBtn);
@@ -56,8 +56,8 @@ class GridView
         // generate new region
         let rowIndex = 1;
         region.grid.forEach(row => {
-            let tileRowElement = this.generateRows(row, region.name, `row${rowIndex}`);
-            this.insertRows(tileRowElement);
+            let tileRowElement = this.createRows(row, region.name, `row${rowIndex}`);
+            this.drawRows(tileRowElement);
             rowIndex++;
         });
 
@@ -92,13 +92,14 @@ class GridView
     }
 
     // generate each row
-    generateRows(row, type, rowIndex)
+    createRows(row, type, rowIndex)
     {
         let rowDiv = document.createElement("div");
         rowDiv.classList.add("tileRow");
         rowDiv.id = rowIndex;
         let tileIndex = 1;
-
+        console.log(rowDiv);
+        // draw each tile
         row.Columns.forEach(tile => {
             let available = tile == 0 ? true : false;
             let tileElement = this.createTile(type, available, `tile${tileIndex}`, rowDiv.id);
@@ -118,32 +119,31 @@ class GridView
 
         // enable drop
         if (available) {
-            tile.classList.add("dropzone");
+            tile.classList.add("droppable");
             // this.enableDropFunction(tile, tileRowId);
         }
         return tile;
     }
 
-    insertRows(rowDiv)
+    drawRows(rowDiv)
     {
         let monsterGrid = document.querySelector('.region');
         monsterGrid.appendChild(rowDiv);
     }
 
     // create the region option buttons
-    createRegionOption(regionName) {
-        let regionOption = document.createElement("button");
-        regionOption.id = regionName;
-        let btnText = document.createTextNode(regionName);
-        regionOption.append(btnText);
+    createRegionButtons(regionName) {
+        let regionButton = document.createElement("button");
+        regionButton.id = regionName;
+        let regionButtonText = document.createTextNode(regionName);
+        regionButton.append(regionButtonText);
 
         // assign click event listener
         let gridController = this.gridController;
-        regionOption.addEventListener("click", function () {
-            let region = this.id;               // get name of selected region
-            gridController.setRegion(region);  // handle selection
-            console.log("maybe");
+        regionButton.addEventListener("click", function () {
+            let chosenRegions = this.id;               // get name of selected chosenRegions
+            gridController.setRegion(chosenRegions);  // handle selection
         });
-        return regionOption;
+        return regionButton;
     }
 }

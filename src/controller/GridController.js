@@ -25,13 +25,13 @@ class GridController
     {
         switch (region) {
             case "Jungle":
-                return this.getRegionToJungle();
+                return this.getRegionJungle();
             case "IcePole":
-                return this.getRegionToIcePole();
+                return this.getRegionIcePole();
             case "Sjahari":
-                return this.getRegionToSjahari();
+                return this.getRegionSjahari();
             default:
-                return this.getRegionToIcePole();
+                return this.getRegionIcePole();
         }
     }
 
@@ -40,7 +40,7 @@ class GridController
 
     }
 
-    getRegionToJungle()
+    getRegionJungle()
     {
         return {
             "name":"Jungle",
@@ -60,7 +60,7 @@ class GridController
         };
     }
 
-    getRegionToIcePole()
+    getRegionIcePole()
     {
         return {
             "name":"IcePole",
@@ -80,7 +80,7 @@ class GridController
         };
     }
 
-    getRegionToSjahari()
+    getRegionSjahari()
     {
         return {
             "name":"Sjahari",
