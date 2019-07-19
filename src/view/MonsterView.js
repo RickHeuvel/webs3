@@ -149,9 +149,11 @@ class MonsterView
 
         //callbacks
         let setupArmAmount = this.setupArmAmount.bind(this);
+        let setupLegAmount = this.setupLegAmount.bind(this);
 
-        let callback = function (selectedType) {
-            setupArmAmount(selectedType);
+        let callback = function (type) {
+            setupArmAmount(type);
+            setupLegAmount(type);
         };
         this.createOptionBox("Type monster", typeList, "monster-type", parentElement, callback, selectedType);
     }
@@ -163,11 +165,11 @@ class MonsterView
         this.clearProperty(parentElement);
 
         //callback
-        //let setupLegAmount = this.setupLegAmount().bind(this);
+        let setupLegAmount = this.setupLegAmount.bind(this);
 
         let callback = function (value) {
             let arms = value;
-            //setupLegAmount(type,arms);
+            setupLegAmount(type,arms);
 
         };
 
@@ -178,7 +180,7 @@ class MonsterView
     }
 
 
-    setupLegAmount(type, armAmount, selectedValue) {
+    setupLegAmount(type, armAmount = 0, selectedValue) {
         //set parentElement
         let parentElement = document.querySelector("#legAmount_holder");
 
@@ -186,6 +188,7 @@ class MonsterView
         this.clearProperty(parentElement);
 
         let range = this.monsterController.getLegAmountRange(type, armAmount);
+
         this.createOptionBox("Aantal benen", range, "leg_amount", parentElement, null, selectedValue);
     }
 
@@ -198,16 +201,25 @@ class MonsterView
         propertySelector.id = optionType;
         propertySelector.name = optionType;
 
-        // create empty options
-        options.forEach( option => {
-            let selectOption = document.createElement("option");
-            selectOption.value = option;
-            let selectText = document.createTextNode(option);
-            selectOption.append(selectText);
+        // create empty option
+        if (!selectedValue){
+            let emptyOption = document.createElement("option");
+            let selectText = document.createTextNode("selecteer...");
+            emptyOption.append(selectText);
+            propertySelector.append(emptyOption);
+        }
 
-            //append option to selectbox
-            propertySelector.append(selectOption);
-        });
+        // create empty options
+            options.forEach( option => {
+                let selectOption = document.createElement("option");
+                selectOption.value = option;
+                let selectText = document.createTextNode(option);
+                selectOption.append(selectText);
+
+                //append option to box
+                propertySelector.append(selectOption);
+            });
+
 
         if (callback) {
             propertySelector.addEventListener("change", function () {
