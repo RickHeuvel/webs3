@@ -1,33 +1,49 @@
 class GridController
 {
-    constructor()
+    constructor(monsterController)
     {
         this.gridView = new GridView(this);
         this.regionList = ['Jungle', 'IcePole', 'Sjahari'];
+        this.monsterController = monsterController;
     }
 
     initialize()
     {
         this.gridView.setUpGridView();
+        this.setRegion("IcePole");
+    }
+
+    setRegion(regionName)
+    {
+        let region = this.selectRegion(regionName);
+        this.selectedRegion = region.name;
+        this.gridView.createRegion(region);
+        this.placeMonsters();
     }
 
     selectRegion(region)
     {
+        console.log('pliz');
         switch (region) {
             case "Jungle":
-                return this.setRegionToJungle();
+                return this.getRegionToJungle();
             case "IcePole":
-                return this.setRegionToIcePole();
+                return this.getRegionToIcePole();
             case "Sjahari":
-                return this.setRegionToSjahari();
+                return this.getRegionToSjahari();
             default:
-                return this.setRegionToIcePole();
+                return this.getRegionToIcePole();
         }
     }
 
-    setRegionToJungle()
+    placeMonsters()
     {
-        let jungle_region = {
+
+    }
+
+    getRegionToJungle()
+    {
+        return {
             "name":"Jungle",
             "climate":"bear grylls approved temperature",
             "reference city": "Rio",
@@ -43,12 +59,11 @@ class GridController
                 { "name":"Row9", "Columns":[ "1", "0", "0", "0", "1", "1", "0", "0", "0","1" ] },
                 { "name":"Row10", "Columns":[ "1", "0", "0", "0", "1", "1", "0", "0", "0","1" ] }]
         };
-        return jungle_region
     }
 
-    setRegionToIcePole()
+    getRegionToIcePole()
     {
-        let icePoleRegion = {
+        return {
             "name":"IcePole",
             "climate":"sub-zero cold",
             "reference city": "Amsterdam",
@@ -63,13 +78,12 @@ class GridController
                 { "name":"Row8", "Columns":[ "1", "0", "0", "0", "0", "0", "0", "0", "0","0" ] },
                 { "name":"Row9", "Columns":[ "1", "0", "0", "0", "1", "1", "0", "0", "0","0" ] },
                 { "name":"Row10", "Columns":[ "1", "0", "0", "0", "1", "1", "0", "0", "0","0" ] }]
-        }
-        return icePoleRegion;
+        };
     }
 
-    setRegionToSjahari()
+    getRegionToSjahari()
     {
-        let sjahariRegion = {
+        return {
             "name":"Sjahari",
             "climate":"burning hot",
             "reference city": "Marrakech",
@@ -84,7 +98,11 @@ class GridController
                 { "name":"Row8", "Columns":[ "0", "0", "0", "0", "0", "0", "0", "0", "0","0" ] },
                 { "name":"Row9", "Columns":[ "0", "0", "0", "0", "0", "0", "0", "0", "0","0" ] },
                 { "name":"Row10", "Columns":[ "0", "0", "0", "0", "0", "0", "0", "0", "0","0" ] }]
-        }
-        return sjahariRegion;
+        };
+    }
+
+    adjustMonsterStrength()
+    {
+
     }
 }
