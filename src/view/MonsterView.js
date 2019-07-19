@@ -151,11 +151,16 @@ class MonsterView
         let setupArmAmount = this.setupArmAmount.bind(this);
         let setupArmType = this.setupArmType.bind(this);
         let setupLegAmount = this.setupLegAmount.bind(this);
+        let setupFurType = this.setupFurType.bind(this);
+        let setupColour = this.setupColour.bind(this);
+
 
         let callback = function (type) {
             setupArmAmount(type);
             setupArmType(type);
             setupLegAmount(type);
+            setupFurType(type);
+            setupColour(type);
         };
         this.createOptionBox("Type monster", typeList, "monster-type", parentElement, callback, selectedType);
     }
@@ -192,6 +197,27 @@ class MonsterView
         this.createOptionBox("Type of arms", types, "arm_type", parentElement, null, selectedValue);
     }
 
+    setupFurType(type, selectedValue){
+        //set parentElement
+        let parentElement = document.querySelector("#furType_holder");
+
+        this.clearProperty(parentElement);
+
+        let types = this.monsterController.getFurType(type);
+
+        this.createOptionBox("Type of fur", types, "fur_type", parentElement, null, selectedValue);
+    }
+
+    setupColour(type, selectedValue){
+        //set parentElement
+        let parentElement = document.querySelector("#colour_holder");
+
+        this.clearProperty(parentElement);
+
+        let types = this.monsterController.getColour(type);
+
+        this.createOptionBox("Colour", types, "colour", parentElement, null, selectedValue);
+    }
     setupLegAmount(type, armAmount = 0, selectedValue) {
         //set parentElement
         let parentElement = document.querySelector("#legAmount_holder");

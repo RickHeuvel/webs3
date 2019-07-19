@@ -118,6 +118,50 @@ class MonsterController
         return types;
     }
 
+    getFurType(type){
+        let types = [];
+        switch (type) {
+            case "Water":
+                types = ["scales", "slime"];
+                break;
+            case "Fire":
+                types = ["scales", "feathers"];
+                break;
+            case "Earth":
+                types = ["hair" , "scales", "slime"];
+                break;
+            case "Air":
+                types = ["feathers", "hair", "scales"];
+                break;
+            default:
+                return;
+        }
+
+        return types;
+    }
+
+    getColour(type) {
+        let colours = [];
+        switch (type) {
+            case "Water":
+                colours = ["blue", "red", "green"];
+                break;
+            case "Fire":
+                colours = ["red", "orange", "brown"];
+                break;
+            case "Earth":
+                colours = ["purple" , "orange", "white"];
+                break;
+            case "Air":
+                colours = ["white", "blue", "purple"];
+                break;
+            default:
+                return;
+        }
+
+        return colours;
+    }
+
     getLegAmountRange(type, armAmount){
         let max = 0;
         let range = [];
