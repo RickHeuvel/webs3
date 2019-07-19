@@ -8,7 +8,15 @@ class GridView
     setUpGridView()
     {
         this.createTitleBox();
-        this.createGrid();
+        this.setUpWeatherListener();
+    }
+
+    setUpWeatherListener()
+    {
+        let grid = document.querySelector(".grid");
+        grid.addEventListener("weather-changed", (event) => {
+            this.gridController.adjustMonsterStrength(this.gridController.selectedRegion, event.detail.temperature, event.detail.wind, event.detail.humidity);
+        });
     }
 
     createTitleBox()
@@ -40,9 +48,88 @@ class GridView
         gridRegions.append(regionBtnWrapper);
     }
 
-    createGrid()
+    createRegion(region)
     {
+        // wipe old region
+        this.wipeGrid();
 
+        // generate new region
+        let rowIndex = 1;
+        region.grid.forEach(row => {
+            let tileRowElement = this.generateRows(row, region.name, `row${rowIndex}`);
+            this.insertRows(tileRowElement);
+            rowIndex++;
+        });
+
+        // let field = document.querySelector(".region");
+        // field.addEventListener("new-monster", (event) => {
+        //     let monsterId = event.detail.monsterId;
+        //     let tiles = document.querySelectorAll(".tile");
+        //     for (let i = 0; i < tiles.length; i++) {
+        //         let monsterImage = tiles[i].querySelector(".monsterImageHolder");
+        //         if (monsterImage && monsterImage.id !== monsterId) {
+        //             this.animateTile(tiles[i]);
+        //         }
+        //     }
+        // });
+    }
+
+
+    wipeGrid()
+    {
+        // create container for the new region
+        let newRegion = document.createElement('div');
+        newRegion.classList.add('region');
+
+        // get the container for the old region
+        let oldRegion = document.querySelector('.region');
+
+        // get the parent element of the old region
+        let parentElement = document.querySelector('.grid');
+
+        // replace the old region container for the new region container
+        parentElement.replaceChild(newRegion, oldRegion)
+    }
+
+
+
+    // generate each row
+    generateRows(row, type, rowIndex)
+    {
+        let rowDiv = document.createElement("div");
+        rowDiv.classList.add("tileRow");
+        rowDiv.id = rowIndex;
+        let tileIndex = 1;
+
+        row.Columns.forEach(tile => {
+            let available = tile == 0 ? true : false;
+            let tileElement = this.createTile(type, available, `tile${tileIndex}`, rowDiv.id);
+            rowDiv.appendChild(tileElement);
+            tileIndex++;
+        });
+        return rowDiv
+    }
+
+    //creates each tile for the board
+    createTile(type, available, tileId, tileRowId) {
+        let tile = document.createElement("div");
+        tile.classList.add("tile");
+        tile.setAttribute("climateType", type);
+        tile.setAttribute("available", available);
+        tile.id = tileId;
+
+        // enable drop
+        if (available) {
+            tile.classList.add("dropzone");
+            // this.enableDropFunction(tile, tileRowId);
+        }
+        return tile;
+    }
+
+    insertRows(rowDiv)
+    {
+        let monsterGrid = document.querySelector('.region');
+        monsterGrid.appendChild(rowDiv);
     }
 
     // create the region option buttons
@@ -55,8 +142,8 @@ class GridView
         // assign eventListener
         let gridController = this.gridController;
         regionOption.addEventListener("click", function () {
-            let region = this.id;               // extract region name of the button
-            gridController.selectRegion(region);  // set new region
+            let region = this.id;               // get name of selected region
+            gridController.setRegion(region);  // handle selection
         });
         return regionOption;
     }
