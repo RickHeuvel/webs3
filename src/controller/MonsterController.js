@@ -65,7 +65,7 @@ class MonsterController
         }
     }
 
-    getArmAmountRange(type){
+    getArmAmount(type){
         let max;
         let range = [];
 
@@ -120,6 +120,7 @@ class MonsterController
 
     getFurType(type){
         let types = [];
+
         switch (type) {
             case "Water":
                 types = ["scales", "slime"];
@@ -162,7 +163,36 @@ class MonsterController
         return colours;
     }
 
-    getLegAmountRange(type, armAmount){
+    getEyeAmount(type){
+        let max = 0;
+        let range = [];
+
+        switch (type) {
+            case "Water":
+                max = 8;
+                for (let i = 1; i <= max; i++ ){
+                    range.push(i);
+                }
+                break;
+            case "Fire":
+                max = 4;
+                for (let i = 1; i <= max; i++ ){
+                    range.push(i);
+                }
+                break;
+            case "Earth":
+                range.push(2);
+                break;
+            case "Air":
+                range.push(2);
+                break;
+            default:
+                return;
+        }
+        return range;
+    }
+
+    getLegAmount(type, armAmount){
         let max = 0;
         let range = [];
 
