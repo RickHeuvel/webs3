@@ -124,15 +124,15 @@ body {
 }
 
 .tile[climateType='Jungle'] {
-    background-color: lime;
+    background-color: #29AB87;
 }
 
 .tile[climateType='IcePole'] {
-    background-color: rgb(103, 214, 248);
+    background-color: #aad4e5;
 }
 
 .tile[climateType='Sjahari'] {
-    background-color: burlywood;
+    background-color: #edc9af;
 }
 
 .tile[available='false'] {

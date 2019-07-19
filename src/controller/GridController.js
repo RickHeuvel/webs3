@@ -23,7 +23,6 @@ class GridController
 
     selectRegion(region)
     {
-        console.log('pliz');
         switch (region) {
             case "Jungle":
                 return this.getRegionToJungle();

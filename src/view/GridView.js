@@ -91,8 +91,6 @@ class GridView
         parentElement.replaceChild(newRegion, oldRegion)
     }
 
-
-
     // generate each row
     generateRows(row, type, rowIndex)
     {
@@ -139,11 +137,12 @@ class GridView
         let btnText = document.createTextNode(regionName);
         regionOption.append(btnText);
 
-        // assign eventListener
+        // assign click event listener
         let gridController = this.gridController;
         regionOption.addEventListener("click", function () {
             let region = this.id;               // get name of selected region
             gridController.setRegion(region);  // handle selection
+            console.log("maybe");
         });
         return regionOption;
     }
