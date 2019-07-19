@@ -98,7 +98,6 @@ class GridView
         rowDiv.classList.add("tileRow");
         rowDiv.id = rowIndex;
         let tileIndex = 1;
-        console.log(rowDiv);
         // draw each tile
         row.Columns.forEach(tile => {
             let available = tile == 0 ? true : false;
