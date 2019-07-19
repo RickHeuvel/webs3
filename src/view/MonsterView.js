@@ -147,9 +147,49 @@ class MonsterView
         let typeList = this.monsterController.types;
         let selectedType = selectedValue ? selectedValue : typeList[0];
 
+        //callbacks
+        let setupArmAmount = this.setupArmAmount.bind(this);
+        let setupLegAmount = this.setupLegAmount.bind(this);
+
+        let callback = function (type) {
+            setupArmAmount(type);
+            setupLegAmount(type);
+        };
+        this.createOptionBox("Type monster", typeList, "monster-type", parentElement, callback, selectedType);
+    }
+
+    setupArmAmount(type,selectedValue){
+        //set parentElement
+        let parentElement = document.querySelector('#armAmount_holder');
+
+        this.clearProperty(parentElement);
+
+        //callback
+        let setupLegAmount = this.setupLegAmount.bind(this);
+
+        let callback = function (value) {
+            let arms = value;
+            setupLegAmount(type,arms);
+
+        };
+
+        // set maxAmount
+        let range = this.monsterController.getArmAmountRange(type);
+
+        this.createOptionBox("Aantal armen", range, "arm_amount", parentElement, callback, selectedValue);
+    }
 
 
-        this.createOptionBox("Type monster", typeList, "monster-type", parentElement, selectedType);
+    setupLegAmount(type, armAmount = 0, selectedValue) {
+        //set parentElement
+        let parentElement = document.querySelector("#legAmount_holder");
+
+        // clean property
+        this.clearProperty(parentElement);
+
+        let range = this.monsterController.getLegAmountRange(type, armAmount);
+
+        this.createOptionBox("Aantal benen", range, "leg_amount", parentElement, null, selectedValue);
     }
 
     createOptionBox(text, options, optionType, parentElement, callback, selectedValue){
@@ -161,22 +201,41 @@ class MonsterView
         propertySelector.id = optionType;
         propertySelector.name = optionType;
 
+        // create empty option
+        if (!selectedValue){
+            let emptyOption = document.createElement("option");
+            let selectText = document.createTextNode("selecteer...");
+            emptyOption.append(selectText);
+            propertySelector.append(emptyOption);
+        }
+
         // create empty options
-        options.forEach( option => {
-            let selectOption = document.createElement("option");
-            selectOption.value = option;
-            let selectText = document.createTextNode(option);
-            selectOption.append(selectText);
+            options.forEach( option => {
+                let selectOption = document.createElement("option");
+                selectOption.value = option;
+                let selectText = document.createTextNode(option);
+                selectOption.append(selectText);
 
-            //append option to selectbox
-            propertySelector.append(selectOption);
-        });
+                //append option to box
+                propertySelector.append(selectOption);
+            });
 
+
+        if (callback) {
+            propertySelector.addEventListener("change", function () {
+                let selectedValue = this.value;
+                callback(selectedValue)
+            });
+        }
         parentElement.append(propertyLabel);
         parentElement.append(propertySelector);
 
         if (selectedValue) {
             propertySelector.value = selectedValue;
+
+            //trigger onchange
+            let event = new Event("change");
+            propertySelector.dispatchEvent(event);
         }
     }
 
@@ -186,4 +245,5 @@ class MonsterView
             holder.firstChild.remove();
         }
     }
+
 }
