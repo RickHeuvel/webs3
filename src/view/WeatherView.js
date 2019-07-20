@@ -73,14 +73,12 @@ class WeatherView
     {
         if(event.key === "Enter")
         {
-            console.log("waaa");
             this.checkWeather();
         }
     }
 
     checkWeather()
     {
-        console.log("checkeee");
         let searchBox = document.querySelector("#search-box");
 
         if(searchBox.value !== "")
@@ -89,15 +87,84 @@ class WeatherView
         }
     }
 
-    // setUpLocation(locationText)
-    // {
-    //     let locationHolder = document.createElement("div");
-    //     locationHolder.classList.add("location-container");
-    // }
+    setUpLocationHolder(locationData)
+    {
+        let locationHolder = document.createElement("div");
+        locationHolder.classList.add("location-container");
+        let locationLabel = document.createElement("p");
+        let locationText = document.createTextNode(`Location: ${locationData}`);
+        locationLabel.appendChild(locationText);
+        locationHolder.appendChild(locationLabel);
+        this.addWeatherData(locationHolder);
+    }
+
+    setUpTemperatureHolder(temperatureData){
+        let temperatureHolder = document.createElement("div");
+        temperatureHolder.classList.add("temperature-container");
+        let temperatureLabel = document.createElement("p");
+        let temperatureText = document.createTextNode(`Temperature: ${temperatureData}`);
+        temperatureLabel.appendChild(temperatureText);
+        temperatureHolder.appendChild(temperatureLabel);
+        this.addWeatherData(temperatureHolder);
+    }
+
+    setUpHumidityHolder(humidityData){
+        let humidityHolder = document.createElement("div");
+        humidityHolder.classList.add("humidity-container");
+        let humidityLabel = document.createElement("p");
+        let humidityText = document.createTextNode(`Humdity: ${humidityData}`);
+        humidityLabel.appendChild(humidityText);
+        humidityHolder.appendChild(humidityLabel);
+        this.addWeatherData(humidityHolder);
+    }
+
+    setUpWindSpeed(windSpeedData){
+        let windSpeedHolder = document.createElement("div");
+        windSpeedHolder.classList.add("wind-speed-container");
+        let windSpeedLabel = document.createElement("p");
+        let windSpeedText = document.createTextNode(`wind speed: ${windSpeedData}`);
+        windSpeedLabel.appendChild(windSpeedText);
+        windSpeedHolder.appendChild(windSpeedLabel);
+        this.addWeatherData(windSpeedHolder);
+    }
+
+    addWeatherData(element){
+        let weatherBox = document.querySelector("#weather-data");
+        weatherBox.appendChild(element);
+    }
 
     showWeather(weather)
     {
+        // wipe old weather data
+        let parentElement = document.querySelector("#weather-data");
+        this.wipeWeatherData(parentElement);
+        //get div that shows weather data
+        this.setUpLocationHolder(weather.name);
+        this.setUpTemperatureHolder(weather.main.temp);
+        this.setUpHumidityHolder(weather.main.humidity);
+        this.setUpWindSpeed(weather.wind.speed);
+    }
 
+    wipeWeatherData(weatherHolder){
+        while(weatherHolder.firstChild){
+            weatherHolder.firstChild.remove();
+        }
+    }
+
+    notifyGrid(temperature, wind, humidity) {
+        let grid = document.querySelector(".grid");
+        grid.dispatchEvent(new CustomEvent("weather-changed", {
+            detail: {
+                temperature: temperature,
+                wind: wind,
+                humidity: humidity
+            }
+        }));
+    }
+
+    showError(error)
+    {
+        alert(error);
     }
 
 }
