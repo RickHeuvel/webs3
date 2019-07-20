@@ -102,7 +102,8 @@ class WeatherView
         let temperatureHolder = document.createElement("div");
         temperatureHolder.classList.add("temperature-container");
         let temperatureLabel = document.createElement("p");
-        let temperatureText = document.createTextNode(`Temperature: ${temperatureData}`);
+        let celciusTemp = this.weatherController.convertToCelsius(temperatureData);
+        let temperatureText = document.createTextNode(`Temperature: ${celciusTemp}°`);
         temperatureLabel.appendChild(temperatureText);
         temperatureHolder.appendChild(temperatureLabel);
         this.addWeatherData(temperatureHolder);
@@ -112,7 +113,7 @@ class WeatherView
         let humidityHolder = document.createElement("div");
         humidityHolder.classList.add("humidity-container");
         let humidityLabel = document.createElement("p");
-        let humidityText = document.createTextNode(`Humdity: ${humidityData}`);
+        let humidityText = document.createTextNode(`Humidity: ${humidityData}`);
         humidityLabel.appendChild(humidityText);
         humidityHolder.appendChild(humidityLabel);
         this.addWeatherData(humidityHolder);
@@ -122,7 +123,7 @@ class WeatherView
         let windSpeedHolder = document.createElement("div");
         windSpeedHolder.classList.add("wind-speed-container");
         let windSpeedLabel = document.createElement("p");
-        let windSpeedText = document.createTextNode(`wind speed: ${windSpeedData}`);
+        let windSpeedText = document.createTextNode(`wind speed: ${windSpeedData} km/h`);
         windSpeedLabel.appendChild(windSpeedText);
         windSpeedHolder.appendChild(windSpeedLabel);
         this.addWeatherData(windSpeedHolder);
