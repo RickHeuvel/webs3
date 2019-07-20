@@ -94,13 +94,13 @@ p{
 }
 
 /* style for special attack */
-.gif_holder {
+.gif-holder {
     margin-top: 15px;
     height: 25%;
     position: inherit;
 }
 
-.gif_holder .specialAttack{
+.gif-holder .specialAttack{
     width: 100%;
     height: 100%;
 }
