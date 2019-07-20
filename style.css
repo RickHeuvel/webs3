@@ -48,16 +48,16 @@ body {
 }
 
 .select-region>button#Jungle {
-    background-color: #4CAF50;
+    background-color: 	#228B22;
     /* Green */
 }
 
 .select-region>button#Sjahari {
-    background-color: burlywood;
+    background-color: #c2b280;
 }
 
 .select-region>button#IcePole {
-    background-color: #008CBA;
+    background-color: #0074D9;
 }
 
 .region {
@@ -190,7 +190,7 @@ body {
 
 /* form style */
 
-.search-input-container input[type=text], select {
+.search-box-container input[type=text], select {
     width: 70%;
     padding: 10px 20px;
     margin: 8px 0;
@@ -228,7 +228,7 @@ input[type=submit] {
     font-family: "Comic Sans MS";
 }
 
-.search-input-container #search-button {
+.search-box-container #search-button {
     width: 20%;
     height: 35px;
     font-family: "Comic Sans MS";
