@@ -12,7 +12,7 @@ class MonsterController
         this.monsterView.setUpMonsterView();
     }
 
-    createMonster(name, type, strength, amountOfArms, typeOfArms, amountOfLegs, amountOfEyes, furType, colour){
+    createMonster(name, type, strength, typeOfArms, amountOfArms, amountOfLegs, amountOfEyes, furType, colour){
         let canFly;
         let canSwim;
         let specialPower;
@@ -26,7 +26,7 @@ class MonsterController
                 break;
             case "Fire":
                 canSwim = false;
-                if(furType === "Veren"){
+                if(furType === "feathers"){
                     canFly = true;
                 }else {
                     canFly = false;
@@ -39,7 +39,7 @@ class MonsterController
                 specialPower = "???";
                 break;
             case "Air":
-                if(furType === "Haar" || furType === "Schubben"){
+                if(furType === "hair" || furType === "scales"){
                     canSwim = true;
                 }else {
                     canSwim = false;
@@ -51,10 +51,10 @@ class MonsterController
                 return;
         }
 
-        let monster = new Monster(id, name, type, strength, amountOfArms, typeOfArms, amountOfLegs, amountOfEyes, furType, colour);
+        let monster = new Monster(id, name, type, strength, amountOfArms, typeOfArms, amountOfLegs, amountOfEyes, furType, colour, canFly, canSwim);
         this.monsterList.push(monster);
 
-        return monster
+        return monster;
     }
 
     generateId(){
@@ -228,59 +228,5 @@ class MonsterController
 
         return range;
     }
-
-    getFlight(type, furType){
-        let flight;
-        switch (type) {
-            case "Water":
-                flight = false;
-                break;
-            case "Fire":
-                if (furType === "feathers") {
-                    flight = true;
-                }else{
-                    flight = false;
-                }
-                break;
-            case "Earth":
-                flight = false;
-                break;
-            case "Air":
-                flight = true;
-                break;
-            default:
-                return;
-        }
-
-        return flight;
-    }
-
-    getSwim(type, furType){
-        let swim;
-
-        switch (type) {
-            case "Water":
-                swim = true;
-                break;
-            case "Fire":
-                swim = false;
-                break;
-            case "Earth":
-                swim = false;
-                break;
-            case "Air":
-                if (furType === "hair" || furType === "scales") {
-                    swim = true;
-                } else {
-                    swim = false;
-                }
-                break;
-            default:
-                return;
-        }
-
-        return swim;
-    }
-
 
 }

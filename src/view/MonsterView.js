@@ -28,7 +28,7 @@ class MonsterView
 
         // create form
         let config_form = document.createElement("form");
-        config_form.id = "config-form";
+        config_form.id = "config_form";
 
         // create id holder
         //?
@@ -102,6 +102,19 @@ class MonsterView
         monsterConfigurator.append(config_form);
         monsterConfiguratorWrapper.append(monsterConfigurator);
 
+
+        // set callbacks
+        let createCallback = this.createMonster.bind(this);
+
+        config_form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            let action = this.dataset.action; // get action createMonster/editMonster
+            if (action == 'createMonster') {
+                createCallback(this.elements);
+            } else {
+              //  editCallback(this.elements);
+            }
+        });
         this.setupCreationForm();
     }
 
@@ -154,6 +167,7 @@ class MonsterView
         let setupEyes = this.setupEyes.bind(this);
         let setupFurType = this.setupFurType.bind(this);
         let setupColour = this.setupColour.bind(this);
+        let setupGenerateBtn = this.createGenerateButton.bind(this);
 
 
         let callback = function (type) {
@@ -163,8 +177,9 @@ class MonsterView
             setupEyes(type);
             setupFurType(type);
             setupColour(type);
+            setupGenerateBtn("createMonster");
         };
-        this.createOptionBox("Type monster", typeList, "monster-type", parentElement, callback, selectedType);
+        this.createOptionBox("Type monster", typeList, "monster_type", parentElement, callback, selectedType);
     }
 
     setupArmAmount(type,selectedValue){
@@ -289,6 +304,45 @@ class MonsterView
         }
     }
 
+    createGenerateButton(action){
+        let parentElement = document.querySelector("#generateButton_holder")
+
+        let form = document.querySelector("#config_form");
+
+        this.clearProperty(parentElement);
+
+        let btn = document.createElement("input");
+        btn.type = "submit";
+
+        if(action === "createMonster"){
+            btn.value = "createMonster";
+        }else{
+            btn.value = "edit"
+        }
+
+        form.setAttribute("data-action", action);
+
+        parentElement.append(btn);
+
+
+    }
+
+    createMonster(properties){
+
+        let name = properties["name"].value;
+        let type = properties["monster_type"].value;
+        let armType = properties["arm_type"].value;
+        let armAmount = properties["arm_amount"].value;
+        let legs = properties["leg_amount"].value;
+        let eyes = properties["eyes"].value;
+        let furType = properties["fur_type"].value;
+        let colour = properties["colour"].value;
+
+        let monster = this.monsterController.createMonster(name,type,null,armType,armAmount,legs,eyes,furType,colour);
+
+        console.log(monster);
+
+    }
 
     clearProperty(holder){
         while (holder.firstChild){
