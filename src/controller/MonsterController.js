@@ -229,5 +229,58 @@ class MonsterController
         return range;
     }
 
+    getFlight(type, furType){
+        let flight;
+        switch (type) {
+            case "Water":
+                flight = false;
+                break;
+            case "Fire":
+                if (furType === "feathers") {
+                    flight = true;
+                }else{
+                    flight = false;
+                }
+                break;
+            case "Earth":
+                flight = false;
+                break;
+            case "Air":
+                flight = true;
+                break;
+            default:
+                return;
+        }
+
+        return flight;
+    }
+
+    getSwim(type, furType){
+        let swim;
+
+        switch (type) {
+            case "Water":
+                swim = true;
+                break;
+            case "Fire":
+                swim = false;
+                break;
+            case "Earth":
+                swim = false;
+                break;
+            case "Air":
+                if (furType === "hair" || furType === "scales") {
+                    swim = true;
+                } else {
+                    swim = false;
+                }
+                break;
+            default:
+                return;
+        }
+
+        return swim;
+    }
+
 
 }
