@@ -29,7 +29,7 @@ class WeatherView
         let searchBoxHolder = document.createElement("div");
         searchBoxHolder.classList.add("search-box-container");
         let weatherForm = document.createElement("div");
-        let searchLabel = document.createElement("div");
+        let searchLabel = document.createElement("label");
         let searchLabelContent = document.createTextNode("Search location");
         let searchBox = document.createElement("input");
         searchBox.id = 'search-box';
