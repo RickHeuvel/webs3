@@ -28,7 +28,7 @@ class MonsterView
 
         // create form
         let config_form = document.createElement("form");
-        config_form.id = "config-form";
+        config_form.id = "config_form";
 
         // create id holder
         //?
@@ -102,6 +102,19 @@ class MonsterView
         monsterConfigurator.append(config_form);
         monsterConfiguratorWrapper.append(monsterConfigurator);
 
+
+        // set callbacks
+        let createCallback = this.createMonster.bind(this);
+
+        config_form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            let action = this.dataset.action; // get action createMonster/editMonster
+            if (action == 'createMonster') {
+                createCallback(this.elements);
+            } else {
+              //  editCallback(this.elements);
+            }
+        });
         this.setupCreationForm();
     }
 
@@ -149,13 +162,24 @@ class MonsterView
 
         //callbacks
         let setupArmAmount = this.setupArmAmount.bind(this);
+        let setupArmType = this.setupArmType.bind(this);
         let setupLegAmount = this.setupLegAmount.bind(this);
+        let setupEyes = this.setupEyes.bind(this);
+        let setupFurType = this.setupFurType.bind(this);
+        let setupColour = this.setupColour.bind(this);
+        let setupGenerateBtn = this.createGenerateButton.bind(this);
+
 
         let callback = function (type) {
             setupArmAmount(type);
+            setupArmType(type);
             setupLegAmount(type);
+            setupEyes(type);
+            setupFurType(type);
+            setupColour(type);
+            setupGenerateBtn("createMonster");
         };
-        this.createOptionBox("Type monster", typeList, "monster-type", parentElement, callback, selectedType);
+        this.createOptionBox("Type monster", typeList, "monster_type", parentElement, callback, selectedType);
     }
 
     setupArmAmount(type,selectedValue){
@@ -174,12 +198,53 @@ class MonsterView
         };
 
         // set maxAmount
-        let range = this.monsterController.getArmAmountRange(type);
+        let range = this.monsterController.getArmAmount(type);
 
         this.createOptionBox("Aantal armen", range, "arm_amount", parentElement, callback, selectedValue);
     }
 
+    setupArmType(type, selectedValue){
+        //set parentElement
+        let parentElement = document.querySelector("#armType_holder");
 
+        this.clearProperty(parentElement);
+
+        let types = this.monsterController.getArmType(type);
+
+        this.createOptionBox("Type of arms", types, "arm_type", parentElement, null, selectedValue);
+    }
+
+    setupFurType(type, selectedValue){
+        //set parentElement
+        let parentElement = document.querySelector("#furType_holder");
+
+        this.clearProperty(parentElement);
+
+        let types = this.monsterController.getFurType(type);
+
+        this.createOptionBox("Type of fur", types, "fur_type", parentElement, null, selectedValue);
+    }
+
+    setupEyes(type, selectedValue){
+        //set parentElement
+        let parentElement = document.querySelector("#eyesAmount_holder");
+
+        this.clearProperty(parentElement);
+
+        let amount = this.monsterController.getEyeAmount(type);
+
+        this.createOptionBox("Eye amount", amount, "eyes", parentElement, null, selectedValue);
+    }
+    setupColour(type, selectedValue){
+        //set parentElement
+        let parentElement = document.querySelector("#colour_holder");
+
+        this.clearProperty(parentElement);
+
+        let types = this.monsterController.getColour(type);
+
+        this.createOptionBox("Colour", types, "colour", parentElement, null, selectedValue);
+    }
     setupLegAmount(type, armAmount = 0, selectedValue) {
         //set parentElement
         let parentElement = document.querySelector("#legAmount_holder");
@@ -187,7 +252,7 @@ class MonsterView
         // clean property
         this.clearProperty(parentElement);
 
-        let range = this.monsterController.getLegAmountRange(type, armAmount);
+        let range = this.monsterController.getLegAmount(type, armAmount);
 
         this.createOptionBox("Aantal benen", range, "leg_amount", parentElement, null, selectedValue);
     }
@@ -239,6 +304,45 @@ class MonsterView
         }
     }
 
+    createGenerateButton(action){
+        let parentElement = document.querySelector("#generateButton_holder")
+
+        let form = document.querySelector("#config_form");
+
+        this.clearProperty(parentElement);
+
+        let btn = document.createElement("input");
+        btn.type = "submit";
+
+        if(action === "createMonster"){
+            btn.value = "createMonster";
+        }else{
+            btn.value = "edit"
+        }
+
+        form.setAttribute("data-action", action);
+
+        parentElement.append(btn);
+
+
+    }
+
+    createMonster(properties){
+
+        let name = properties["name"].value;
+        let type = properties["monster_type"].value;
+        let armType = properties["arm_type"].value;
+        let armAmount = properties["arm_amount"].value;
+        let legs = properties["leg_amount"].value;
+        let eyes = properties["eyes"].value;
+        let furType = properties["fur_type"].value;
+        let colour = properties["colour"].value;
+
+        let monster = this.monsterController.createMonster(name,type,null,armType,armAmount,legs,eyes,furType,colour);
+
+        console.log(monster);
+
+    }
 
     clearProperty(holder){
         while (holder.firstChild){
