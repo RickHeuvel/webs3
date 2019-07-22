@@ -58,11 +58,7 @@ class MonsterController
     }
 
     generateId(){
-        if (this.monsterList.length === 0){
-            return 0;
-        } else {
             return this.monsterList.length +1;
-        }
     }
 
     getArmAmount(type){

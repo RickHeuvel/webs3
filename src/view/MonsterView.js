@@ -121,6 +121,7 @@ class MonsterView
     setupCreationForm(){
         this.setupName();
         this.setupType();
+        this.setupStrength()
     }
 
     setupName(selectedValue){
@@ -150,6 +151,7 @@ class MonsterView
         parentElement.append(nameInput);
 
     }
+
     setupType(selectedValue){
         let parentElement = document.querySelector("#type_holder");
 
@@ -235,6 +237,7 @@ class MonsterView
 
         this.createOptionBox("Eye amount", amount, "eyes", parentElement, null, selectedValue);
     }
+
     setupColour(type, selectedValue){
         //set parentElement
         let parentElement = document.querySelector("#colour_holder");
@@ -245,6 +248,7 @@ class MonsterView
 
         this.createOptionBox("Colour", types, "colour", parentElement, null, selectedValue);
     }
+
     setupLegAmount(type, armAmount = 0, selectedValue) {
         //set parentElement
         let parentElement = document.querySelector("#legAmount_holder");
@@ -255,6 +259,30 @@ class MonsterView
         let range = this.monsterController.getLegAmount(type, armAmount);
 
         this.createOptionBox("Aantal benen", range, "leg_amount", parentElement, null, selectedValue);
+    }
+
+    setupStrength(selectedValue){
+        let parentElement = document.querySelector("#strength_holder")
+
+        this.clearProperty(parentElement);
+
+        let strengthLabel = document.createElement("label");
+        let labelText = document.createTextNode("strength");
+        let input = document.createElement("input");
+        strengthLabel.for = "strength";
+        strengthLabel.appendChild(labelText);
+        input.type = "number";
+        input.id = "strength";
+        input.name = "strength";
+      //  input.placeholder = 0;
+        input.required = true;
+
+        if (selectedValue){
+            input.value = selectedValue;
+        }
+
+        parentElement.append(strengthLabel);
+        parentElement.append(input);
     }
 
     createOptionBox(text, options, optionType, parentElement, callback, selectedValue){
@@ -331,6 +359,7 @@ class MonsterView
 
         let name = properties["name"].value;
         let type = properties["monster_type"].value;
+        let strength = properties["strength"].value;
         let armType = properties["arm_type"].value;
         let armAmount = properties["arm_amount"].value;
         let legs = properties["leg_amount"].value;
@@ -338,7 +367,7 @@ class MonsterView
         let furType = properties["fur_type"].value;
         let colour = properties["colour"].value;
 
-        let monster = this.monsterController.createMonster(name,type,null,armType,armAmount,legs,eyes,furType,colour);
+        let monster = this.monsterController.createMonster(name,type,strength,armType,armAmount,legs,eyes,furType,colour);
 
         console.log(monster);
 
