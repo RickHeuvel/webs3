@@ -64,8 +64,12 @@ class WeatherView
         // special attack gif box
         let weatherTitle = document.querySelector(".weather-title");
         let specialAttackDiv = document.createElement("div");
-        specialAttackDiv.classList.add("gif-holder");
-        weatherTitle.appendChild(specialAttackDiv);
+
+        // var elem = document.createElement("img");
+        // elem.src  = 'images/earth.gif';
+        // specialAttackDiv.appendChild(elem);
+        // specialAttackDiv.classList.add("gif-holder");
+        // weatherBox.appendChild(specialAttackDiv);
 
     }
 
