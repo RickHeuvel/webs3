@@ -383,7 +383,7 @@ class MonsterView
         // check if all properties are filled 
         for(let i = 0; i < properties.length; i++){
             if (properties[i].value === "select...") {
-                this.showError("fill in all the properties");
+                this.showError("Please check the form");
                 return
             }
         } 
