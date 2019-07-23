@@ -225,4 +225,26 @@ class MonsterController
         return range;
     }
 
+    getImage(type){
+        let img;
+
+        switch (type) {
+            case "Water":
+                img = "images/water.jpg";
+                break;
+            case "Fire":
+                img = "images/fire.jpg";
+                break;
+            case "Earth":
+                img = "images/earth.jpg";
+                break;
+            case "Air":
+                img = "images/air.jpg";
+                break;
+            default:
+                return;
+        }
+        return img;
+    }
+
 }

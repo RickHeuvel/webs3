@@ -98,6 +98,11 @@ class MonsterView
         generateButton_holder.id = "generateButton_holder";
         config_form.append(generateButton_holder);
 
+        //div with class monster-image
+        let monster_image_holder = document.createElement("div");
+        monster_image_holder.id = "image_holder";
+        config_form.append(monster_image_holder);
+
 
         monsterConfigurator.append(config_form);
         monsterConfiguratorWrapper.append(monsterConfigurator);
@@ -285,6 +290,24 @@ class MonsterView
         parentElement.append(input);
     }
 
+    setupImage(monster){
+        let parentElement = document.querySelector("#image_holder");
+
+        let image = document.createElement("img");
+        image.src = this.monsterController.getImage(monster.type);
+
+        image.setAttribute("place", "monster-configurator");
+
+        //create holder
+        let imgHolder = document.createElement("div");
+        imgHolder.classList.add("imgHolder");
+        imgHolder.id = monster.id;
+
+        imgHolder.appendChild(image);
+        parentElement.appendChild(imgHolder);
+
+    }
+
     createOptionBox(text, options, optionType, parentElement, callback, selectedValue){
         let propertyLabel = document.createElement(("label"));
         let ArmsLabel = document.createTextNode(text);
@@ -369,7 +392,7 @@ class MonsterView
 
         let monster = this.monsterController.createMonster(name,type,strength,armType,armAmount,legs,eyes,furType,colour);
 
-        console.log(monster);
+        this.setupImage(monster);
 
     }
 
