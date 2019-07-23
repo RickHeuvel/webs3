@@ -303,6 +303,19 @@ class MonsterView
         imgHolder.classList.add("imgHolder");
         imgHolder.id = monster.id;
 
+        // make image draggable
+        imgHolder.setAttribute("draggable", true);
+        // set event listener for dragging
+        imgHolder.addEventListener("dragstart", function(event){
+            let monsterImg = event.target.parentElement;
+            event.dataTransfer.setData("text", imgHolder.id);
+        });
+
+        // when image is placed on grid
+        imgHolder.addEventListener("placedSuccesfully", (event) => {
+            
+        });
+
         imgHolder.appendChild(image);
         parentElement.appendChild(imgHolder);
 

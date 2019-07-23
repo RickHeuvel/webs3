@@ -145,4 +145,47 @@ class GridView
         });
         return regionButton;
     }
+
+    dropMonster(tile, row)
+    {
+        tile.addEventListener("dragover", (event) => {
+            // allow drop
+            event.preventDefault();
+        });
+
+        tile.addEventListener("drop", (event) => {
+            event.preventDefault();
+            // get monster data
+            var monsterData = event.dataTransfer.getData("text");
+            // get monster image
+            let monsterImgHolder = document.getElementById(monsterData);
+
+            if (monsterImg.parentElement != tile && !tile.hasChildNodes()){
+                let monsterImg = monsterImgHolder.querySelector(".imgHolder");
+                monsterImg.setAttribute(("place"), "grid");
+                event.target.appendChild(monsterImgHolder);
+
+                // let imgHolder (MonsterView) know that it is placed successfully
+                monsterImgHolder.dispatchEvent(new CustomEvent("placedSuccesfully", {
+                    detail: {
+                        monsterId: data,
+                        region: this.gridController.selectedRegion,
+                        x: tile.id,
+                        y: row
+                    }
+                }));
+
+                this.notifyGrid(data);
+            }
+        })
+    }
+
+    notifyGrid(monsterId) {
+        let region = document.querySelector(".region");
+        region.dispatchEvent(new CustomEvent("new-monster", {
+            detail: {
+                monsterId: monsterId
+            }
+        }));
+    }
 }
