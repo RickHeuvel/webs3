@@ -145,7 +145,7 @@ class MonsterView
         nameInput.type = "text";
         nameInput.id = "name";
         nameInput.name = "name";
-        nameInput.placeholder = "Naam....";
+        nameInput.placeholder = "Name....";
         nameInput.required = true;
 
         if (selectedValue) {
@@ -267,7 +267,7 @@ class MonsterView
     }
 
     setupStrength(selectedValue){
-        let parentElement = document.querySelector("#strength_holder")
+        let parentElement = document.querySelector("#strength_holder");
 
         this.clearProperty(parentElement);
 
@@ -279,7 +279,7 @@ class MonsterView
         input.type = "number";
         input.id = "strength";
         input.name = "strength";
-      //  input.placeholder = 0;
+        input.placeholder = 0;
         input.required = true;
 
         if (selectedValue){
@@ -320,7 +320,7 @@ class MonsterView
         // create empty option
         if (!selectedValue){
             let emptyOption = document.createElement("option");
-            let selectText = document.createTextNode("selecteer...");
+            let selectText = document.createTextNode("select...");
             emptyOption.append(selectText);
             propertySelector.append(emptyOption);
         }
@@ -380,6 +380,13 @@ class MonsterView
 
     createMonster(properties){
 
+        // check if all properties are filled 
+        for(let i = 0; i < properties.length; i++){
+            if (properties[i].value === "select...") {
+                this.showError("fill in all the properties");
+                return
+            }
+        } 
         let name = properties["name"].value;
         let type = properties["monster_type"].value;
         let strength = properties["strength"].value;
@@ -402,4 +409,7 @@ class MonsterView
         }
     }
 
+    showError(errorMessage) {
+        alert(errorMessage);
+    }
 }
