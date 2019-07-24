@@ -247,4 +247,16 @@ class MonsterController
         return img;
     }
 
+    moveMonster(monsterId, xPosition, yPosition, region) {
+        let monster = this.getMonsterById(monsterId);
+        monster.xPosition = xPosition;
+        monster.yPosition = yPosition;
+        monster.region = region;
+        return monster;
+    }
+
+    getMonsterById(id) {
+        return this.monsterList.find(monster => monster.id == id);
+    }
+
 }

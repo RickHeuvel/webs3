@@ -322,13 +322,65 @@ class MonsterView
 
         // when image is placed on grid
         imgHolder.addEventListener("placedSuccesfully", (event) => {
+            // get monster id and remove monster prefir
+            let monsterId = event.detail.monsterId.replace("monster", "");
+            this.monsterController.moveMonster(monsterId, event.detail.x, event.detail.y, event.detail.region);
+            this.setupCreateMonsterForm();
         });
+
+        // this.wipeProperty(parentElement);
+
+        this.showSpecialAttack(image, monster.type);
 
         imgHolder.appendChild(image);
         parentElement.appendChild(imgHolder);
 
     }
 
+    //shows the special attack of the clicked monster
+    showSpecialAttack(monsterImage, type) {
+        monsterImage.addEventListener('click', (event) => {
+            this.createSpecialAttackHolder(type);
+        });
+    }
+
+    //enable special attack of each type
+    createSpecialAttackHolder(type) {
+        let parentElement = document.querySelector(".gif-holder");
+        // this.wipeProperty(parentElement);
+        let gif = document.createElement("img");
+        gif.classList.add("specialAttack");
+
+        switch (type) {
+            case "Water":
+                gif.src = "./images/water.gif";
+                break;
+            case "Fire":
+                gif.src = "./images/fire.gif";
+                break;
+            case "Earth":
+                gif.src = "./images/earth.gif";
+                break;
+            case "Air":
+                gif.src = "./images/wind.gif";
+                break;
+            default:
+                return;
+        }
+
+        parentElement.appendChild(gif);
+
+        setTimeout(() => {
+            // this.wipeProperty(parentElement);
+        }, 5000);
+    }
+
+    // cleans the element when the monster property changes
+    wipeProperty(propertyHolder) {
+        while (propertyHolder.firstChild) {
+            propertyHolder.firstChild.remove();
+        }
+    }
     createOptionBox(text, options, optionType, parentElement, callback, selectedValue){
         let propertyLabel = document.createElement(("label"));
         let ArmsLabel = document.createTextNode(text);
