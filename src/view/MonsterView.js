@@ -295,9 +295,13 @@ class MonsterView
 
         let image = document.createElement("img");
         image.src = this.monsterController.getImage(monster.type);
+        image.draggable = true;
 
+        image.width = 50;
+        image.height = 50;
         if(location)
         {
+
             image.setAttribute("location", location);
         }
         else
@@ -459,7 +463,8 @@ class MonsterView
                 this.showError("Please check the form");
                 return
             }
-        } 
+        }
+
         let name = properties["name"].value;
         let type = properties["monster_type"].value;
         let strength = properties["strength"].value;

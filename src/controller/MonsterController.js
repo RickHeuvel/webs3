@@ -230,16 +230,16 @@ class MonsterController
 
         switch (type) {
             case "Water":
-                img = "images/water.jpg";
+                img = "images/water.png";
                 break;
             case "Fire":
-                img = "images/fire.jpg";
+                img = "images/fire.png";
                 break;
             case "Earth":
                 img = "images/earth.jpg";
                 break;
             case "Air":
-                img = "images/air.jpg";
+                img = "images/air.png";
                 break;
             default:
                 return;
