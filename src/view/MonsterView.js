@@ -290,13 +290,22 @@ class MonsterView
         parentElement.append(input);
     }
 
-    setupImage(monster){
+    setupImage(monster, location){
         let parentElement = document.querySelector("#image_holder");
 
         let image = document.createElement("img");
         image.src = this.monsterController.getImage(monster.type);
 
-        image.setAttribute("place", "monster-configurator");
+        if(location)
+        {
+            image.setAttribute("location", location);
+        }
+        else
+        {
+            image.setAttribute("location", "monster-configurator");
+        }
+
+        image.classList.add("image");
 
         //create holder
         let imgHolder = document.createElement("div");
@@ -313,7 +322,6 @@ class MonsterView
 
         // when image is placed on grid
         imgHolder.addEventListener("placedSuccesfully", (event) => {
-            
         });
 
         imgHolder.appendChild(image);

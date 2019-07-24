@@ -119,7 +119,7 @@ class GridView
         // enable drop
         if (available) {
             tile.classList.add("droppable");
-            // this.enableDropFunction(tile, tileRowId);
+            this.dropMonster(tile, tileRowId)
         }
         return tile;
     }
@@ -159,23 +159,23 @@ class GridView
             var monsterData = event.dataTransfer.getData("text");
             // get monster image
             let monsterImgHolder = document.getElementById(monsterData);
-
-            if (monsterImg.parentElement != tile && !tile.hasChildNodes()){
-                let monsterImg = monsterImgHolder.querySelector(".imgHolder");
+            // check if new tile is not equal to current tile and is free
+            if (monsterImgHolder.parentElement != tile && !tile.hasChildNodes()){
+                let monsterImg = monsterImgHolder.querySelector(".image");
                 monsterImg.setAttribute(("place"), "grid");
                 event.target.appendChild(monsterImgHolder);
 
                 // let imgHolder (MonsterView) know that it is placed successfully
                 monsterImgHolder.dispatchEvent(new CustomEvent("placedSuccesfully", {
                     detail: {
-                        monsterId: data,
+                        monsterId: monsterData,
                         region: this.gridController.selectedRegion,
                         x: tile.id,
                         y: row
                     }
                 }));
 
-                this.notifyGrid(data);
+                this.notifyGrid(monsterData);
             }
         })
     }
