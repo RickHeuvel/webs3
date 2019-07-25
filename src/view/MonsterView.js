@@ -340,11 +340,11 @@ class MonsterView
 
         // when image is placed on grid
         imgHolder.addEventListener("placedSuccesfully", (event) => {
-            // get monster id and remove monster prefir
+            // get monster id and remove monster prefix
             let monsterId = event.detail.monsterId.replace("monster", "");
             this.monsterController.moveMonster(monsterId, event.detail.x, event.detail.y, event.detail.region);
             this.monsterController.saveMonster(monsterId);
-            this.setupCreateMonsterForm();
+            this.setupCreationForm();
         });
 
         // this.wipeProperty(parentElement);
@@ -493,6 +493,7 @@ class MonsterView
 
         let monster = this.monsterController.createMonster(name,type,strength,armType,armAmount,legs,eyes,furType,colour);
 
+        this.monsterController.saveMonster(monster.id);
         this.setupImage(monster);
 
     }
