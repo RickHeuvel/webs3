@@ -103,6 +103,35 @@ class MonsterView
         monster_image_holder.id = "image_holder";
         config_form.append(monster_image_holder);
 
+        monsterConfigurator.addEventListener("dragover", (event) => {
+           // allow drop
+           event.preventDefault();
+        });
+
+        monsterConfigurator.addEventListener("drop", (event) => {
+           event.preventDefault();
+
+           // get id of monster
+            var data = event.dataTransfer.getData("text");
+
+            // get monster image holder from the grid
+            let monsterImageWrapper = document.getElementById(data);
+
+            // get image holder in form
+            let monsterImageHolder = document.querySelector("#image_holder");
+
+            // only if there is no monster in the configurator
+            if(!monsterImageHolder.hasChildNodes())
+            {
+                let monsterImage = monsterImageWrapper.querySelector(".image");
+                monsterImage.setAttribute("location", "monster-configurator");
+                monsterImageHolder.appendChild(monsterImageWrapper);
+
+                // get monster id and remove 'monster' prefix
+                let monsterId = data.replace("monster", "");
+                this.setUpEditMonsterForm(monsterId);
+            }
+        });
 
         monsterConfigurator.append(config_form);
         monsterConfiguratorWrapper.append(monsterConfigurator);
@@ -121,6 +150,10 @@ class MonsterView
             }
         });
         this.setupCreationForm();
+    }
+
+    setUpEditMonsterForm(monsterId){
+
     }
 
     setupCreationForm(){
@@ -295,7 +328,7 @@ class MonsterView
 
         let image = document.createElement("img");
         image.src = this.monsterController.getImage(monster.type);
-        image.draggable = true;
+        // image.draggable = true;
 
         image.width = 50;
         image.height = 50;
@@ -493,7 +526,8 @@ class MonsterView
         let monster = this.monsterController.createMonster(name,type,strength,armType,armAmount,legs,eyes,furType,colour);
 
         this.monsterController.saveMonster(monster.id);
-        this.setupImage(monster);
+        let parentElement = document.querySelector("#image_holder");
+        this.setupImage(monster, parentElement);
 
     }
 
