@@ -56,6 +56,20 @@ class MonsterController
         return monster;
     }
 
+    updateMonster(properties) {
+        let monster = this.getMonsterById(properties.id);
+        monster.name = properties.name;
+        monster.strength = properties.strength;
+        monster.amountOfArms = properties.arms;
+        monster.typeOfArms = properties.typeOfArms;
+        monster.amountOfLegs = properties.legs;
+        monster.amountOfEyes = properties.eyes;
+        monster.furType = properties.furType;
+        monster.colour = properties.colour;
+
+        return monster;
+    }
+
     generateId(){
         return localStorage.length +1;
     }
@@ -260,7 +274,6 @@ class MonsterController
 
     getMonsterById(id) {
         return JSON.parse(localStorage.getItem(id));
-     //   return this.monsterList.find(monster => monster.id == id);
     }
 
     getMonstersByRegion(region) {

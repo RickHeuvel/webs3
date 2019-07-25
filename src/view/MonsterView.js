@@ -31,7 +31,9 @@ class MonsterView
         config_form.id = "config_form";
 
         // create id holder
-        //?
+        let id_holder = document.createElement("div");
+        id_holder.id = "id_holder";
+        config_form.append(id_holder);
 
         // create name holder
         let name_holder = document.createElement("div");
@@ -127,9 +129,7 @@ class MonsterView
                 monsterImage.setAttribute("location", "monster-configurator");
                 monsterImageHolder.appendChild(monsterImageWrapper);
 
-                // get monster id and remove 'monster' prefix
-                let monsterId = data.replace("monster", "");
-                this.setUpEditMonsterForm(monsterId);
+                this.setupEditConfig(data);
             }
         });
 
@@ -139,21 +139,34 @@ class MonsterView
 
         // set callbacks
         let createCallback = this.createMonster.bind(this);
-
+        let editCallback = this.editMonster.bind(this);
         config_form.addEventListener("submit", function (event) {
             event.preventDefault();
             let action = this.dataset.action; // get action createMonster/editMonster
             if (action == 'createMonster') {
                 createCallback(this.elements);
             } else {
-              //  editCallback(this.elements);
+                editCallback(this.elements);
             }
         });
         this.setupCreationForm();
     }
 
-    setUpEditMonsterForm(monsterId){
+    setupEditConfig(monsterId) {
+        let monster = this.monsterController.getMonsterById(monsterId);
+        this.setupId(monster.id);
+        this.setupName(monster.name);
+        this.setupStrength(monster.strength);
+        let monsterTypeHolder = document.querySelector("#type_holder");
+        this.clearProperty(monsterTypeHolder);
 
+        this.setupArmAmount(monster.type, monster.amountOfArms);
+        this.setupArmType(monster.type, monster.typeOfArms);
+        this.setupLegAmount(monster.type, monster.amountOfArms, monster.amountOfLegs);
+        this.setupEyes(monster.type, monster.amountOfEyes);
+        this.setupFurType(monster.type, monster.furType);
+        this.setupColour(monster.type, monster.colour);
+        this.createGenerateButton("edit");
     }
 
     setupCreationForm(){
@@ -162,6 +175,20 @@ class MonsterView
         this.setupStrength()
     }
 
+    setupId(id) {
+        // get parent element
+        let parentElement = document.querySelector("#id_holder");
+
+        // clean old id property
+        this.clearProperty(parentElement);
+
+        let monsterIdInput = document.createElement("input");
+        monsterIdInput.name = "id";
+        monsterIdInput.value = id;
+        monsterIdInput.type = "hidden";
+
+        parentElement.append(monsterIdInput);
+    }
     setupName(selectedValue){
         let parentElement = document.querySelector("#name_holder");
 
@@ -526,11 +553,33 @@ class MonsterView
         this.setupImage(monster, parentElement);
     }
 
+    editMonster(properties) {
+
+        let data = {
+            id: properties['id'].value,
+            name: properties['name'].value,
+            strength: properties['strength'].value,
+            arms: properties['arm_amount'].value,
+            armType: properties['arm_type'].value,
+            legs: properties['leg_amount'].value,
+            eyes: properties['eyes'].value,
+            furType: properties['fur_type'].value,
+            colour: properties['colour'].value
+        };
+
+        let updatedMonster = this.monsterController.updateMonster(data);
+        // get parent element
+        let parentElement = document.querySelector("#image_holder");
+        this.setupImage(updatedMonster, parentElement);
+    }
+
+
     placeMonster(monster){
         // get parent element
         let parentElement = document.querySelector(`#${monster.yPosition} > #${monster.xPosition}`);
         this.setupImage(monster, parentElement, "grid");
     }
+
     clearProperty(holder){
         while (holder.firstChild){
             holder.firstChild.remove();
