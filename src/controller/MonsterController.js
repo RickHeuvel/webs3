@@ -4,7 +4,6 @@ class MonsterController
     {
         this.monsterView = new MonsterView(this);
         this.types = ["Water", "Fire", "Earth", "Air"];
-        this.monsterList = [];
     }
 
     initialize()
@@ -51,14 +50,14 @@ class MonsterController
                 return;
         }
 
-        let monster = new Monster(id, name, type, strength, amountOfArms, typeOfArms, amountOfLegs, amountOfEyes, furType, colour, canFly, canSwim);
-        this.monsterList.push(monster);
+        let monster = new Monster(id, name, type, strength, amountOfArms, typeOfArms, amountOfLegs, amountOfEyes, furType, colour, canFly, canSwim,null,null,null, null);
+        this.saveMonster(monster);
 
         return monster;
     }
 
     generateId(){
-            return this.monsterList.length +1;
+        return localStorage.length +1;
     }
 
     getArmAmount(type){
@@ -255,12 +254,30 @@ class MonsterController
         return monster;
     }
 
-    getMonsterById(id) {
-        return this.monsterList.find(monster => monster.id == id);
+    placeMonster(monster){
+        this.monsterView.placeMonster(monster);
     }
 
-    saveMonster(id){
-        localStorage.setItem(id, JSON.stringify(this.getMonsterById(id)));
+    getMonsterById(id) {
+        return JSON.parse(localStorage.getItem(id));
+     //   return this.monsterList.find(monster => monster.id == id);
+    }
+
+    getMonstersByRegion(region) {
+        let monsters = [];
+
+        Object.keys(localStorage).forEach(function(key){
+            let monster = JSON.parse(localStorage.getItem(key));
+
+            if (monster.region === region) {
+                monsters.push(monster);
+            }
+        });
+        return monsters;
+    }
+
+    saveMonster(monster){
+        localStorage.setItem(monster.id, JSON.stringify(monster));
     }
 
 }

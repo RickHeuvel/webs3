@@ -140,8 +140,8 @@ class GridView
         // assign click event listener
         let gridController = this.gridController;
         regionButton.addEventListener("click", function () {
-            let chosenRegions = this.id;               // get name of selected chosenRegions
-            gridController.setRegion(chosenRegions);  // handle selection
+            let chosenRegion = this.id;               // get name of selected chosenRegions
+            gridController.setRegion(chosenRegion);  // handle selection
         });
         return regionButton;
     }
@@ -177,7 +177,7 @@ class GridView
 
                 this.notifyGrid(monsterData);
             }
-        })
+        });
     }
 
     notifyGrid(monsterId) {

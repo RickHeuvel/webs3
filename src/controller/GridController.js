@@ -18,7 +18,7 @@ class GridController
         let region = this.selectRegion(regionName);
         this.selectedRegion = region.name;
         this.gridView.createRegion(region);
-        this.placeMonsters();
+        this.placeMonsters(regionName);
     }
 
     selectRegion(region)
@@ -37,7 +37,9 @@ class GridController
 
     placeMonsters()
     {
-
+        this.monsterController.getMonstersByRegion(this.selectedRegion).forEach(monster => {
+            this.monsterController.placeMonster(monster);
+        });
     }
 
     getRegionJungle()

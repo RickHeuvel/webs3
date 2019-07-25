@@ -296,12 +296,12 @@ class MonsterView
         let image = document.createElement("img");
         image.src = this.monsterController.getImage(monster.type);
         image.draggable = true;
-
         image.width = 50;
         image.height = 50;
+
         if(location)
         {
-
+            console.log(location);
             image.setAttribute("location", location);
         }
         else
@@ -340,10 +340,8 @@ class MonsterView
 
         // when image is placed on grid
         imgHolder.addEventListener("placedSuccesfully", (event) => {
-            // get monster id and remove monster prefix
-            let monsterId = event.detail.monsterId.replace("monster", "");
-            this.monsterController.moveMonster(monsterId, event.detail.x, event.detail.y, event.detail.region);
-            this.monsterController.saveMonster(monsterId);
+            monster = this.monsterController.moveMonster(monster.id, event.detail.x, event.detail.y, event.detail.region);
+            this.monsterController.saveMonster(monster);
             this.setupCreationForm();
         });
 
@@ -493,11 +491,15 @@ class MonsterView
 
         let monster = this.monsterController.createMonster(name,type,strength,armType,armAmount,legs,eyes,furType,colour);
 
-        this.monsterController.saveMonster(monster.id);
         this.setupImage(monster);
 
     }
 
+    placeMonster(monster){
+        // get parent element
+        let parentElement = document.querySelector(`#${monster.yPosition} > #${monster.xPosition}`);
+        this.setupImage(monster, parentElement, "grid");
+    }
     clearProperty(holder){
         while (holder.firstChild){
             holder.firstChild.remove();
