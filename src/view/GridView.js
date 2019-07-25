@@ -119,7 +119,7 @@ class GridView
         // enable drop
         if (available) {
             tile.classList.add("droppable");
-            this.dropMonster(tile, tileRowId)
+            this.dragAndDrop(tile, tileRowId)
         }
         return tile;
     }
@@ -146,7 +146,7 @@ class GridView
         return regionButton;
     }
 
-    dropMonster(tile, row)
+    dragAndDrop(tile, row)
     {
         tile.addEventListener("dragover", (event) => {
             // allow drop
@@ -160,13 +160,13 @@ class GridView
             // get monster image
             let monsterImgHolder = document.getElementById(monsterData);
             // check if new tile is not equal to current tile and is free
-            if (monsterImgHolder.parentElement != tile && !tile.hasChildNodes()){
+            if (monsterImgHolder.parentElement !== tile && !tile.hasChildNodes()){
                 let monsterImg = monsterImgHolder.querySelector(".image");
                 monsterImg.setAttribute(("location"), "grid");
                 event.target.appendChild(monsterImgHolder);
 
                 // let imgHolder (MonsterView) know that it is placed successfully
-                monsterImgHolder.dispatchEvent(new CustomEvent("placedSuccesfully", {
+                monsterImgHolder.dispatchEvent(new CustomEvent("placed", {
                     detail: {
                         monsterId: monsterData,
                         region: this.gridController.selectedRegion,

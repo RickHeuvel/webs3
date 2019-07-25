@@ -323,8 +323,7 @@ class MonsterView
         parentElement.append(input);
     }
 
-    setupImage(monster, location){
-        let parentElement = document.querySelector("#image_holder");
+    setupImage(monster, parentElement, location){
 
         let image = document.createElement("img");
         image.src = this.monsterController.getImage(monster.type);
@@ -370,13 +369,13 @@ class MonsterView
         });
 
         // when image is placed on grid
-        imgHolder.addEventListener("placedSuccesfully", (event) => {
+        imgHolder.addEventListener("placed", (event) => {
             monster = this.monsterController.moveMonster(monster.id, event.detail.x, event.detail.y, event.detail.region);
             this.monsterController.saveMonster(monster);
             this.setupCreationForm();
         });
 
-        // this.wipeProperty(parentElement);
+        this.wipeProperty(parentElement);
 
         this.showSpecialAttack(image, monster.type);
 
@@ -500,10 +499,10 @@ class MonsterView
 
     }
 
-    createMonster(properties){
+    createMonster(properties) {
 
         // check if all properties are filled 
-        for(let i = 0; i < properties.length; i++){
+        for (let i = 0; i < properties.length; i++) {
             if (properties[i].value === "select...") {
                 this.showError("Please check the form");
                 return
@@ -520,11 +519,12 @@ class MonsterView
         let furType = properties["fur_type"].value;
         let colour = properties["colour"].value;
 
-        let monster = this.monsterController.createMonster(name,type,strength,armType,armAmount,legs,eyes,furType,colour);
+        let monster = this.monsterController.createMonster(name, type, strength, armType, armAmount, legs, eyes, furType, colour);
 
         this.monsterController.saveMonster(monster.id);
-        // let parentElement = document.querySelector("#image_holder");
-        this.setupImage(monster);
+        let parentElement = document.querySelector("#image_holder");
+        this.setupImage(monster, parentElement);
+    }
 
     placeMonster(monster){
         // get parent element
