@@ -522,8 +522,9 @@ class MonsterView
 
         let monster = this.monsterController.createMonster(name,type,strength,armType,armAmount,legs,eyes,furType,colour);
 
+        this.monsterController.saveMonster(monster.id);
+        // let parentElement = document.querySelector("#image_holder");
         this.setupImage(monster);
-        }
 
     placeMonster(monster){
         // get parent element
