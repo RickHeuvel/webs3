@@ -376,6 +376,7 @@ class MonsterView
             // get monster id and remove monster prefix
             let monsterId = event.detail.monsterId.replace("monster", "");
             this.monsterController.moveMonster(monsterId, event.detail.x, event.detail.y, event.detail.region);
+            this.monsterController.saveMonster(monsterId);
             this.setupCreationForm();
         });
 

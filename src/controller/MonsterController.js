@@ -260,8 +260,6 @@ class MonsterController
     }
 
     saveMonster(id){
-        console.log(id);
-        console.log(this.getMonsterById(id));
         localStorage.setItem(id, JSON.stringify(this.getMonsterById(id)));
     }
 
