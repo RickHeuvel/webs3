@@ -162,7 +162,7 @@ class GridView
             // check if new tile is not equal to current tile and is free
             if (monsterImgHolder.parentElement != tile && !tile.hasChildNodes()){
                 let monsterImg = monsterImgHolder.querySelector(".image");
-                monsterImg.setAttribute(("place"), "grid");
+                monsterImg.setAttribute(("location"), "grid");
                 event.target.appendChild(monsterImgHolder);
 
                 // let imgHolder (MonsterView) know that it is placed successfully
