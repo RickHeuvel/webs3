@@ -492,6 +492,7 @@ class MonsterView
 
         let monster = this.monsterController.createMonster(name,type,strength,armType,armAmount,legs,eyes,furType,colour);
 
+        this.monsterController.saveMonster(monster.id);
         this.setupImage(monster);
 
     }

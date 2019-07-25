@@ -259,4 +259,10 @@ class MonsterController
         return this.monsterList.find(monster => monster.id == id);
     }
 
+    saveMonster(id){
+        console.log(id);
+        console.log(this.getMonsterById(id));
+        localStorage.setItem(id, JSON.stringify(this.getMonsterById(id)));
+    }
+
 }
