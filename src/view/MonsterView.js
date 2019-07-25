@@ -343,6 +343,7 @@ class MonsterView
             // get monster id and remove monster prefir
             let monsterId = event.detail.monsterId.replace("monster", "");
             this.monsterController.moveMonster(monsterId, event.detail.x, event.detail.y, event.detail.region);
+            this.monsterController.saveMonster(monsterId);
             this.setupCreateMonsterForm();
         });
 
@@ -492,7 +493,6 @@ class MonsterView
 
         let monster = this.monsterController.createMonster(name,type,strength,armType,armAmount,legs,eyes,furType,colour);
 
-        this.monsterController.saveMonster(monster.id);
         this.setupImage(monster);
 
     }
