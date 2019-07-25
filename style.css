@@ -74,7 +74,7 @@ p{
     padding: 5px;
 }
 
-.monsterImageHolder .monster-image-properties {
+.imgHolder .image_properties {
     visibility: hidden;
     width: 200px;
     max-height: 130px;
@@ -89,7 +89,7 @@ p{
     z-index: 1;
 }
 
-.monsterImageHolder:hover .monster-image-properties {
+.imgHolder:hover .image_properties {
     visibility: visible;
 }
 

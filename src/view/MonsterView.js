@@ -311,6 +311,20 @@ class MonsterView
 
         image.classList.add("image");
 
+        // create extra div for the monster properties
+        let ImageProperties = document.createElement("div");
+        ImageProperties.classList.add("image_properties");
+        ImageProperties.id = 'image_properties';
+
+        // for loop where each property comes within in a <p> element
+        for (let prop in monster) {
+            let properties = document.createElement("p");
+            let property = document.createTextNode(`${prop} = ${monster[prop]}`);
+            properties.appendChild(property);
+            ImageProperties.appendChild(properties);
+
+        }
+
         //create holder
         let imgHolder = document.createElement("div");
         imgHolder.classList.add("imgHolder");
@@ -329,6 +343,7 @@ class MonsterView
         });
 
         imgHolder.appendChild(image);
+        imgHolder.appendChild(ImageProperties);
         parentElement.appendChild(imgHolder);
 
     }
