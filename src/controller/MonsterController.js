@@ -4,6 +4,7 @@ class MonsterController
     {
         this.monsterView = new MonsterView(this);
         this.types = ["Water", "Fire", "Earth", "Air"];
+        this.monsterList = [];
     }
 
     initialize()
@@ -49,9 +50,9 @@ class MonsterController
             default:
                 return;
         }
-
         let monster = new Monster(id, name, type, strength, amountOfArms, typeOfArms, amountOfLegs, amountOfEyes, furType, colour, canFly, canSwim,null,null,null, null);
         this.saveMonster(monster);
+        this.monsterList.push(monster);
 
         return monster;
     }
@@ -274,6 +275,19 @@ class MonsterController
 
     getMonsterById(id) {
         return JSON.parse(localStorage.getItem(id));
+    }
+
+    deleteMonster(id){
+        let monsterListPosition;
+        // find position of monster in list
+        let monster = this.monsterList.find(function (item, index, array) {
+            if(item.id === id){
+                monsterListPosition = index;
+            }
+        });
+        this.monsterList.splice(monsterListPosition, 1);
+        localStorage.removeItem(id);
+
     }
 
     getMonstersByRegion(region) {

@@ -105,15 +105,23 @@ class MonsterView
         monster_image_holder.id = "image_holder";
         config_form.append(monster_image_holder);
 
+        // create delete button
+        let deleteButtonHolder = document.createElement("div");
+        deleteButtonHolder.id = "delete-button-holder";
+        config_form.append(deleteButtonHolder);
+
+        monsterConfigurator.append(config_form);
+        monsterConfiguratorWrapper.append(monsterConfigurator);
+
         monsterConfigurator.addEventListener("dragover", (event) => {
-           // allow drop
-           event.preventDefault();
+            // allow drop
+            event.preventDefault();
         });
 
         monsterConfigurator.addEventListener("drop", (event) => {
-           event.preventDefault();
+            event.preventDefault();
 
-           // get id of monster
+            // get id of monster
             var data = event.dataTransfer.getData("text");
 
             // get monster image holder from the grid
@@ -132,10 +140,6 @@ class MonsterView
                 this.setupEditConfig(data);
             }
         });
-
-        monsterConfigurator.append(config_form);
-        monsterConfiguratorWrapper.append(monsterConfigurator);
-
 
         // set callbacks
         let createCallback = this.createMonster.bind(this);
@@ -167,12 +171,39 @@ class MonsterView
         this.setupFurType(monster.type, monster.furType);
         this.setupColour(monster.type, monster.colour);
         this.createGenerateButton("edit");
+        this.setupDeleteButton(monsterId);
     }
 
     setupCreationForm(){
         this.setupName();
         this.setupType();
-        this.setupStrength()
+        this.setupStrength();
+        this.setupDeleteButton()
+    }
+
+    setupDeleteButton(id){
+        let parentElement = document.querySelector("#delete-button-holder");
+
+        this.wipeProperty(parentElement);
+
+        // create delete button
+        if(id){
+            let deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "Delete";
+            deleteBtn.classList.add("delete");
+            // callback
+            deleteBtn.addEventListener("click", () => {
+                this.deleteCleaning(id);
+            });
+            parentElement.appendChild(deleteBtn);
+        }
+    }
+
+    deleteCleaning(id) {
+        this.monsterController.deleteMonster(id);
+        this.setupCreationForm();
+
+        let parentElement = document.querySelector("#image-holder");
     }
 
     setupId(id) {
@@ -504,7 +535,7 @@ class MonsterView
     }
 
     createGenerateButton(action){
-        let parentElement = document.querySelector("#generateButton_holder")
+        let parentElement = document.querySelector("#generateButton_holder");
 
         let form = document.querySelector("#config_form");
 
