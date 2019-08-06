@@ -66,6 +66,7 @@ class MonsterController
         monster.furType = properties.furType;
         monster.colour = properties.colour;
 
+        this.saveMonster(monster);
         return monster;
     }
 
@@ -295,5 +296,54 @@ class MonsterController
     saveMonster(monster){
         localStorage.setItem(monster.id, JSON.stringify(monster));
     }
+
+    setWeatherStrength(weatherJSON){
+        let m = null;
+
+
+        Object.keys(localStorage).forEach(async function (key) {
+            let monster = JSON.parse(localStorage.getItem(key));
+
+            switch (monster.type) {
+                case "Water":
+                    console.log('water start');
+                    if (weatherJSON.main.humidity >= 10) {
+                        console.log('water start if');
+                        monster.strength = 20;
+                        m = monster;
+
+                        this.updateMonster(monster);
+                        console.log('water end if');
+                    }
+                    break;
+                case "Fire":
+                    if (weatherJSON.main.humidity <= 10) {
+                        console.log('aids enzo');
+                    }
+                    break;
+                case "Earth":
+                    console.log('earth start');
+                    if (weatherJSON.wind.speed <= 10) {
+                        console.log('earth start if');
+
+                        console.log('earth end if');
+                    }
+                    break;
+                case "Air":
+                    if (weatherJSON.wind.speed >= 10) {
+                        console.log('aids enzo');
+                    }
+                    break;
+                default:
+                    return;
+            }
+
+        });
+
+this.updateMonster(m);
+
+    }
+
+
 
 }

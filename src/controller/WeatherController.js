@@ -3,6 +3,7 @@ class WeatherController
     constructor(regionList)
     {
         this.weatherView = new WeatherView(this);
+        this.monsterController = new MonsterController();
         this.regionList = regionList;
     }
 
@@ -47,6 +48,7 @@ class WeatherController
                 }
             })
             .then(function(myJSON){
+                self.monsterController.setWeatherStrength(myJSON);
                 self.weatherView.showWeather(myJSON);
                 let temp = self.convertToCelsius(myJSON.main.temp);
                 self.weatherView.notifyGrid(temp, myJSON.wind.speed, myJSON.wind.speed);
@@ -55,8 +57,6 @@ class WeatherController
                 self.weatherView.showError("Could not find location");
                 return;
             })
-
-
     }
 
     //convert the Kelvin value to Celsius
