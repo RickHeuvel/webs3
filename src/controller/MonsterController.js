@@ -298,49 +298,44 @@ class MonsterController
     }
 
     setWeatherStrength(weatherJSON){
-        let m = null;
-
 
         Object.keys(localStorage).forEach(async function (key) {
             let monster = JSON.parse(localStorage.getItem(key));
 
             switch (monster.type) {
                 case "Water":
-                    console.log('water start');
                     if (weatherJSON.main.humidity >= 10) {
-                        console.log('water start if');
-                        monster.strength = 20;
-                        m = monster;
-
-                        this.updateMonster(monster);
-                        console.log('water end if');
+                        monster.currentStrenght = monster.originalStrength *2;
+                    }else{
+                        monster.currentStrenght = monster.originalStrength;
                     }
                     break;
                 case "Fire":
                     if (weatherJSON.main.humidity <= 10) {
-                        console.log('aids enzo');
+                        monster.currentStrenght = monster.originalStrength *2;
+                    }else{
+                        monster.currentStrenght = monster.originalStrength;
                     }
                     break;
                 case "Earth":
-                    console.log('earth start');
                     if (weatherJSON.wind.speed <= 10) {
-                        console.log('earth start if');
-
-                        console.log('earth end if');
+                        monster.currentStrenght = monster.originalStrength *2;
+                    }else{
+                        monster.currentStrenght = monster.originalStrength;
                     }
                     break;
                 case "Air":
                     if (weatherJSON.wind.speed >= 10) {
-                        console.log('aids enzo');
+                        monster.currentStrenght = monster.originalStrength *2;
+                    }else{
+                        monster.currentStrenght = monster.originalStrength;
                     }
                     break;
                 default:
                     return;
             }
-
-        });
-
-this.updateMonster(m);
+            this.updateMonster(monster);
+        },this);
 
     }
 
