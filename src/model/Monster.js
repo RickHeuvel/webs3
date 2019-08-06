@@ -4,7 +4,8 @@ class Monster {
         this.id = id;
         this.name = name;
         this.type = type;
-        this.strength = strength;
+        this.currentStrength = strength;
+        this.originalStength = strength;
         this.amountOfArms = amountOfArms;
         this.typeOfArms = typeOfArms;
         this.amountOfLegs = amountOfLegs;
