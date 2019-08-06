@@ -58,7 +58,7 @@ class MonsterController
     updateMonster(properties) {
         let monster = this.getMonsterById(properties.id);
         monster.name = properties.name;
-        monster.currentStrength = properties.strength;
+        monster.currentStrength = properties.currentStrenght;
         monster.amountOfArms = properties.arms;
         monster.typeOfArms = properties.typeOfArms;
         monster.amountOfLegs = properties.legs;

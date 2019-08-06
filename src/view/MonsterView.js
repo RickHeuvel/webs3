@@ -571,8 +571,7 @@ class MonsterView
 
         let name = properties["name"].value;
         let type = properties["monster_type"].value;
-        let currentStrength = properties["strength"].value;
-        let originalStrength = properties["strength"];
+        let originalStrength = properties["strength"].value;
         let armType = properties["arm_type"].value;
         let armAmount = properties["arm_amount"].value;
         let legs = properties["leg_amount"].value;
@@ -580,9 +579,8 @@ class MonsterView
         let furType = properties["fur_type"].value;
         let colour = properties["colour"].value;
 
-        let monster = this.monsterController.createMonster(name, type, currentStrength, armType, armAmount, legs, eyes, furType, colour);
+        let monster = this.monsterController.createMonster(name, type, originalStrength, armType, armAmount, legs, eyes, furType, colour);
 
-        this.monsterController.saveMonster(monster.id);
         let parentElement = document.querySelector("#image_holder");
         this.setupImage(monster, parentElement);
     }
