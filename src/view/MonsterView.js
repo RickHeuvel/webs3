@@ -203,7 +203,7 @@ class MonsterView
         this.monsterController.deleteMonster(id);
         this.setupCreationForm();
 
-        let parentElement = document.querySelector("#imgHolder");
+        let parentElement = document.querySelector(".imgHolder");
 
         this.wipeProperty(parentElement);
     }
