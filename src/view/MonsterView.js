@@ -450,8 +450,11 @@ class MonsterView
         monsterImage.addEventListener('click', (event) => {
             if ( monsterImage.style.backgroundColor == 'red') {
                 monsterImage.style.backgroundColor = 'transparent';
+
             }else {
-                monsterImage.style.backgroundColor = 'red'
+                monsterImage.style.backgroundColor = 'red';
+                var audio = new Audio('./sounds/tackle.mp3');
+                audio.play();
             }
 
         });
