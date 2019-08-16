@@ -437,7 +437,7 @@ class MonsterView
 
         this.wipeProperty(parentElement);
 
-        this.showSpecialAttack(image, monster.type);
+        this.onclickMonster(image, monster.type);
 
         imgHolder.appendChild(image);
         imgHolder.appendChild(ImageProperties);
@@ -446,9 +446,14 @@ class MonsterView
     }
 
     //shows the special attack of the clicked monster
-    showSpecialAttack(monsterImage, type) {
+    onclickMonster(monsterImage, type) {
         monsterImage.addEventListener('click', (event) => {
-            this.createSpecialAttackHolder(type);
+            if ( monsterImage.style.backgroundColor == 'red') {
+                monsterImage.style.backgroundColor = 'transparent';
+            }else {
+                monsterImage.style.backgroundColor = 'red'
+            }
+
         });
     }
 
@@ -580,7 +585,6 @@ class MonsterView
         let colour = properties["colour"].value;
 
         let monster = this.monsterController.createMonster(name, type, originalStrength, armType, armAmount, legs, eyes, furType, colour);
-
         let parentElement = document.querySelector("#image_holder");
         this.setupImage(monster, parentElement);
     }
