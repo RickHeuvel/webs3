@@ -61,9 +61,6 @@ class WeatherView
         weatherDataDiv.id = "weather-data";
         weatherBox.appendChild(weatherDataDiv);
 
-        // create box for weatherAttack
-        specialAttackDiv.classList.add("gif_holder");
-        weatherTitle.appendChild(specialAttackDiv);
     }
 
     EnterListener(event)

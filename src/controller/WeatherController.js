@@ -1,19 +1,21 @@
 class WeatherController
 {
-    constructor(regionList)
+    constructor()
     {
         this.weatherView = new WeatherView(this);
         this.monsterController = new MonsterController();
-        this.regionList = regionList;
     }
 
     initialize()
     {
         this.weatherView.setUpWeatherView();
-        this.setWeather('Eindhoven');
+        this.setWeather(this.setLocations('Eindhoven'));
     }
 
-    setLocations(regionList){
+    changeLocation(region){
+        this.setWeather(this.setLocations(region))
+    }
+    setLocations(region){
         let location;
         switch (region) {
             case "Jungle":
@@ -21,9 +23,12 @@ class WeatherController
                 break;
             case "IcePole":
                 location = "Amsterdam";
-            case "Sjahari":
-                location = "Limburg";
                 break;
+            case "Sjahari":
+                location = "Weert";
+                break;
+            default:
+                return;
         }
         return location;
     }
