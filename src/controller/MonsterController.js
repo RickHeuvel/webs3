@@ -14,14 +14,12 @@ class MonsterController
     createMonster(name, type, strength, typeOfArms, amountOfArms, amountOfLegs, amountOfEyes, furType, colour){
         let canFly;
         let canSwim;
-        let specialPower;
         let id = this.generateId();
 
         switch (type){
             case "Water":
                 canSwim = true;
                 canFly = false;
-                specialPower = "???";
                 break;
             case "Fire":
                 canSwim = false;
@@ -30,12 +28,10 @@ class MonsterController
                 }else {
                     canFly = false;
                 }
-                specialPower = "???";
                 break;
             case "Earth":
                 canSwim = false;
                 canFly = false;
-                specialPower = "???";
                 break;
             case "Air":
                 if(furType === "hair" || furType === "scales"){
@@ -44,12 +40,11 @@ class MonsterController
                     canSwim = false;
                 }
                 canFly = true;
-                specialPower = "???";
                 break;
             default:
                 return;
         }
-        let monster = new Monster(id, name, type, strength, amountOfArms, typeOfArms, amountOfLegs, amountOfEyes, furType, colour, canFly, canSwim,null,null,null, null);
+        let monster = new Monster(id, name, type, strength, amountOfArms, typeOfArms, amountOfLegs, amountOfEyes, furType, colour, canFly, canSwim,null,null, null);
         this.saveMonster(monster);
 
         return monster;

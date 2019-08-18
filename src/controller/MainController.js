@@ -2,15 +2,15 @@ class MainController {
 
     constructor() {
         this.monsterController = new MonsterController();
-        this.gridController = new GridController(this.monsterController);
-        this.weatherController = new WeatherController(this.gridController.regionList);
+        this.weatherController = new WeatherController();
+        this.gridController = new GridController(this.monsterController, this.weatherController);
         this.initialize();
     }
 
     initialize() {
         this.monsterController.initialize();
-        this.weatherController.initialize();
         this.gridController.initialize();
+        this.weatherController.initialize();
     }
 
 }

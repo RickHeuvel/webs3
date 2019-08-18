@@ -1,10 +1,11 @@
 class GridController
 {
-    constructor(monsterController)
+    constructor(monsterController, weatherController)
     {
         this.gridView = new GridView(this);
         this.regionList = ['Jungle', 'IcePole', 'Sjahari'];
         this.monsterController = monsterController;
+        this.weatherController = weatherController;
     }
 
     initialize()
@@ -19,6 +20,7 @@ class GridController
         this.selectedRegion = region.name;
         this.gridView.createRegion(region);
         this.placeMonsters(regionName);
+        this.weatherController.changeLocation(this.selectedRegion);
     }
 
     selectRegion(region)
@@ -100,10 +102,5 @@ class GridController
                 { "name":"Row9", "Columns":[ "0", "0", "0", "0", "0", "0", "0", "0", "0","0" ] },
                 { "name":"Row10", "Columns":[ "0", "0", "0", "0", "0", "0", "0", "0", "0","0" ] }]
         };
-    }
-
-    adjustMonsterStrength()
-    {
-
     }
 }

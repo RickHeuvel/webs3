@@ -8,16 +8,8 @@ class GridView
     setUpGridView()
     {
         this.createTitleBox();
-        this.setUpWeatherListener();
     }
 
-    setUpWeatherListener()
-    {
-        let grid = document.querySelector(".grid");
-        grid.addEventListener("weather-changed", (event) => {
-            this.gridController.adjustMonsterStrength(this.gridController.selectedRegion, event.detail.temperature, event.detail.wind, event.detail.humidity);
-        });
-    }
 
     createTitleBox()
     {
