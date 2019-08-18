@@ -61,19 +61,23 @@ class GridView
             rowIndex++;
         });
 
-        // let field = document.querySelector(".region");
-        // field.addEventListener("new-monster", (event) => {
-        //     let monsterId = event.detail.monsterId;
-        //     let tiles = document.querySelectorAll(".tile");
-        //     for (let i = 0; i < tiles.length; i++) {
-        //         let monsterImage = tiles[i].querySelector(".monsterImageHolder");
-        //         if (monsterImage && monsterImage.id !== monsterId) {
-        //             this.animateTile(tiles[i]);
-        //         }
-        //     }
-        // });
+        let field = document.querySelector(".region");
+        field.addEventListener("nearby-monster-placed", (event) => {
+            let monsterId = event.detail.monsterId;
+            let tiles = document.querySelectorAll(".tile");
+            for (let i = 0; i < tiles.length; i++) {
+                let image = tiles[i].querySelector(".image");
+                if (image != null) {
+                    this.animateTile(tiles[i]);
+                }
+            }
+        });
     }
 
+    animateTile(tile) {
+        tile.classList.remove("changeColor");
+        tile.classList.add("changeColor");
+    }
 
     wipeGrid()
     {
@@ -174,7 +178,7 @@ class GridView
                         y: row
                     }
                 }));
-
+                // when monster is placed, notifyGrid for possible interaction
                 this.notifyGrid(monsterData);
             }
         });
@@ -182,7 +186,7 @@ class GridView
 
     notifyGrid(monsterId) {
         let region = document.querySelector(".region");
-        region.dispatchEvent(new CustomEvent("new-monster", {
+        region.dispatchEvent(new CustomEvent("nearby-monster-placed", {
             detail: {
                 monsterId: monsterId
             }
