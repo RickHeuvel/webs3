@@ -103,9 +103,4 @@ class GridController
                 { "name":"Row10", "Columns":[ "0", "0", "0", "0", "0", "0", "0", "0", "0","0" ] }]
         };
     }
-
-    adjustMonsterStrength()
-    {
-
-    }
 }
