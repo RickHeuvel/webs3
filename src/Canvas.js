@@ -1,5 +1,7 @@
 
-var canvas = document.querySelector('canvas');
+//var canvas = document.querySelector('canvas');
+const canvas = document.createElement('canvas');
+const view = document.body;
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -7,6 +9,19 @@ canvas.height = window.innerHeight;
 const c = canvas.getContext('2d');
 
 const circleArray = [];
+
+//fill the circleArray
+for (let i = 0; i < 100; i++ ) {
+    let radius = 30;
+    let x = Math.random() * (innerWidth - radius * 2) + radius;
+    let y = Math.random() * (innerHeight - radius * 2) + radius ;
+    let velocityX = (Math.random() - 0.5);
+    let velocityY = (Math.random() - 0.5);
+
+
+    circleArray.push(new Circle(x, y, velocityX, velocityY, radius));
+}
+animate().then();
 
 function Circle(x,y,velocityX,velocityY, radius) {
     this.x = x;
@@ -43,24 +58,10 @@ function Circle(x,y,velocityX,velocityY, radius) {
     };
 }
 
-//create array of circles
-function createCircles() {
 
-    for (let i = 0; i < 500; i++ ) {
-        let radius = 30;
-        let x = Math.random() * (innerWidth - radius * 2) + radius;
-        let y = Math.random() * (innerHeight - radius * 2) + radius ;
-        let velocityX = (Math.random() - 0.5);
-        let velocityY = (Math.random() - 0.5);
-
-
-        circleArray.push(new Circle(x, y, velocityX, velocityY, radius));
-    }
-}
-
-// loop through circleArray and update each circle
-function animate() {
-    requestAnimationFrame(animate);
+// loop through circleArray and update each circles and background
+async function animate() {
+    await requestAnimationFrame(animate);
 
     c.clearRect(0,0,innerWidth,innerHeight);
 
@@ -68,7 +69,8 @@ function animate() {
         circleArray[i].update();
     }
 
-
+    // refresh the background
+    view.style.background= "url(" + canvas.toDataURL() + ")";
 
 }
 
@@ -81,6 +83,5 @@ function getRandomColor() {
     }
     return color;
 }
-createCircles();
-animate();
+
 
